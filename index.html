@@ -275,6 +275,369 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/静态库打包-基础版/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/30/静态库打包-基础版/" itemprop="url">
+                  静态库打包-基础版
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T18:05:34+08:00">
+                2017-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="setup-1"><a href="#setup-1" class="headerlink" title="setup 1"></a>setup 1</h3><p><em>tag 设置页中点击+号。如图</em></p>
+<img src="/2017/01/30/静态库打包-基础版/1.png" alt="1.png" title="">
+<p><em>完成后得效果</em></p>
+<img src="/2017/01/30/静态库打包-基础版/2.png" alt="2.png" title="">
+<p><em>可以通过修改 scheme 名字</em></p>
+<img src="/2017/01/30/静态库打包-基础版/3.png" alt="3.png" title="">
+<p><em>工程建立以后，删除默认的.h .m 文件</em></p>
+<h3 id="setup-2"><a href="#setup-2" class="headerlink" title="setup 2"></a>setup 2</h3><p><em>1、在 .a 的 TAG 中 点击 Build Phases</em></p>
+<p><em>2、在 .a 的 Headers 中 把需要编译，并依赖的头文件加进来</em><br><em>效果就是这样得</em><br><img src="/2017/01/30/静态库打包-基础版/4.png" alt="4.png" title=""><br><em>3、在 .a 的 Compile Sources 中 把需要打入到.a 的 .m 文件加进来</em><br><img src="/2017/01/30/静态库打包-基础版/5.png" alt="5.png" title=""></p>
+<h3 id="setup-3"><a href="#setup-3" class="headerlink" title="setup 3"></a>setup 3</h3><p><em>编译静态库</em></p>
+<p><em>1、修改 release or debug 。显然如果对外发布需要是release版本的</em></p>
+<p><em>2、Edit 中run 修改 为release 版本</em></p>
+<p><em>3、bulid</em></p>
+<p>设备<br><img src="/2017/01/30/静态库打包-基础版/6.png" alt="6.png" title=""></p>
+<p><br><br>模拟器<br><img src="/2017/01/30/静态库打包-基础版/7.png" alt="7.png" title=""></p>
+<h3 id="setup-4"><a href="#setup-4" class="headerlink" title="setup 4"></a>setup 4</h3><p><em>build完之后呢？</em></p>
+<p><em>1、查看 bulid 后 DerivedDate/xxxxx/Build/Products/   后的两组文件 {Release-iphoneos,Release-iphonesimulator}{Debug-iphoneos,Debug-iphonesimulator}</em></p>
+<img src="/2017/01/30/静态库打包-基础版/8.png" alt="8.png" title="">
+<p><em>2、选择一组 合并</em></p>
+<ul>
+<li>为什么要合并呢?</li>
+</ul>
+<p>一个真机使用，一个是模拟器使用。但是每次真机测试的时候，都要换成真机的.a库，模拟器测试的时候又要换回来，特别麻烦。一天几十次真机和模拟器测试，来回折腾浪费了很多时间，我终于受不了，网上也没一个完整的解决方案，google了下方法，最后通过自己的实践，成功的解决了.a静态库文件通用性问题，希望这个能给大家带来方便，痛苦的童鞋们，可以解脱了!</p>
+<ul>
+<li>通过命令合并</li>
+</ul>
+<p>lipo -create /Users/songjie/Library/Developer/Xcode/DerivedData/JMPublicLib-ckepmguzidcclbctdmounjlpegvq/Build/Products/Release-iphoneos/libEFPublicLib.a /Users/songjie/Library/Developer/Xcode/DerivedData/JMPublicLib-ckepmguzidcclbctdmounjlpegvq/Build/Products/Release-iphonesimulator/libEFPublicLib.a -output /Users/songjie/Desktop/输出的文件.a<br>ps:输出到桌面了<br>重要的部分：lipo -create 真机.a 路径 splece 模拟器.a路径<br>-output /Users/songjie/Desktop/输出的文件.a</p>
+<ul>
+<li><p>通过shell合并</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">点击<span class="keyword">Add </span><span class="keyword">Build </span>Phase按钮，在弹出的菜单中选择<span class="keyword">Add </span>Run Script，如下图:</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="/2017/01/30/静态库打包-基础版/9.png" alt="9.png" title="">
+<img src="/2017/01/30/静态库打包-基础版/10.png" alt="10.png" title="">
+ <figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">现在你需要设置脚本项。展开Run Script模块，在Shell行下粘贴如下代码:</div><div class="line"></div><div class="line"><span class="comment"># define output folder environment variable</span></div><div class="line">UNIVERSAL_OUTPUTFOLDER=$&#123;BUILD_DIR&#125;/$&#123;CONFIGURATION&#125;-universal</div><div class="line"></div><div class="line"><span class="comment"># Step 1. Build Device and Simulator versions</span></div><div class="line">xcodebuild -target ImageFilters ONLY_ACTIVE_ARCH=NO -configuration $&#123;CONFIGURATION&#125; -sdk iphoneos  BUILD_DIR=<span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>"</span> BUILD_ROOT=<span class="string">"<span class="subst">$&#123;BUILD_ROOT&#125;</span>"</span></div><div class="line">xcodebuild -target ImageFilters -configuration $&#123;CONFIGURATION&#125; -sdk iphonesimulator -arch i386 BUILD_DIR=<span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>"</span> BUILD_ROOT=<span class="string">"<span class="subst">$&#123;BUILD_ROOT&#125;</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># make sure the output directory exists</span></div><div class="line"><span class="keyword">mkdir</span> -p <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># Step 2. Create universal binary file using lipo</span></div><div class="line">lipo -create -output <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span> <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphoneos/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span> <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphonesimulator/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span></div><div class="line"></div><div class="line"><span class="comment"># Last touch. copy the header files. Just for convenience</span></div><div class="line">cp -R <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphoneos/include"</span> <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>/"</span></div><div class="line"></div><div class="line">代码并不十分复杂，它是这样工作的:</div><div class="line">UNIVERSAL_OUTPUTFOLDER 包括了通用二进制包将要被存放的文件夹:“Debug-universal”</div><div class="line"></div><div class="line">Step <span class="number">1</span>. 第<span class="number">2</span>行执行了xcodebuild并命令它构建ARM架构的二进制文件。(你可以看到这行中的-sdk iphoneos参数)</div><div class="line">下一行再次执行了xcodebuild命令并在另一个文件夹中构建了一个针对Inter架构的iPhone模拟器的二进制文件，在这里关键参数是-sdk iphonesimulator -arch i386。(如果感兴趣，你可以在man page了解更多关于xcodebuild的资料)</div><div class="line"></div><div class="line">Step <span class="number">2</span>. 现在已经有了<span class="number">2</span>个.a文件分别对应两个架构。执行lipo -create，用它们创建出一个通用二进制。</div><div class="line"></div><div class="line">最后一行的作用是复制头文件到通用构建文件夹的外层。(用cp命令)</div></pre></td></tr></table></figure>
+<p><em>PS：由于对shell脚本不熟悉验证失败提示没有找到路径，熟悉的同学可以自己试试</em></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/IOS推送/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/30/IOS推送/" itemprop="url">
+                  IOS推送
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T17:55:05+08:00">
+                2017-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IOS/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#IOS消息推送机制的实现</p>
+<h4 id="setup-1"><a href="#setup-1" class="headerlink" title="setup 1"></a>setup 1</h4><p>通过我们自己的push服务器或者第三方（友盟），把消息发送给苹果（APNS）服务器上。</p>
+<h4 id="setup-2"><a href="#setup-2" class="headerlink" title="setup 2"></a>setup 2</h4><p>苹果服务器在注册push服务的iphone列表中查找标记的iphone，并把消息发送给这个iphone设备。</p>
+<h4 id="setup-3"><a href="#setup-3" class="headerlink" title="setup 3"></a>setup 3</h4><p>iphone把收到的信息传递给对应的应用程序。<br \=""></p>
+<p>简单吧  let’s go on…..</p>
+<hr>
+<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><h5 id="NO-1：是不是每个app都可以收到通知服务？"><a href="#NO-1：是不是每个app都可以收到通知服务？" class="headerlink" title="NO 1：是不是每个app都可以收到通知服务？"></a>NO 1：是不是每个app都可以收到通知服务？</h5><p>不是的。你的app需要<a href="http://blog.csdn.net/shenjie12345678/article/details/41120637" target="_blank" rel="external">注册消息推送服务</a> <br></p>
+<h5 id="NO-2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？"><a href="#NO-2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？" class="headerlink" title="NO 2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？"></a>NO 2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？</h5><p>对了，device token（令牌），那么怎么来获取它呢？<a href="www.xxxx.com">获取device token</a> <br></p>
+<p><code>需要提示的是在develop和ADHot或者线上证书调试的时候获取的device token是不一样的。</code><br></p>
+<blockquote>
+<p>既然是由push服务器去发消息给苹果，那么就需要app把令牌提供给我们或者第三方的Push服务器。 （一般都会要求你得到device token后上报seaver）<br></p>
+</blockquote>
+<pre>
+#pragma mark - remote notification related
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+- ....收到devicetoken
+    //上传服务器
+    [UMessage registerDeviceToken:deviceToken];
+    [[EFNetworkManager sharedManager] uploadDeviceInfo];//上报设备信息
+}
+#pragma mark - 注册推送失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    EFLOG(@"----failed---to--regisiter--for--remote---notification---%@",error.localizedDescription);
+}
+
+#pragma mark - didReceiveRemoteNotification - 收到推送
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    [EFUMessageHelper didReceiveRemoteNotification:userInfo];
+
+}
+处理推送
+- (void)application:(UIApplication *)application didReceiveRemoteNotification
+                   :(NSDictionary *)userInfo fetchCompletionHandler
+                   :(void (^)(UIBackgroundFetchResult))completionHandler {
+    [EFUMessageHelper didReceiveRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+    return;
+}
+</pre>
+
+<h5 id="NO-4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。"><a href="#NO-4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。" class="headerlink" title="NO 4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。"></a>NO 4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。</h5><pre>
+普通的文本
+{
+    aps =     {
+        alert = "hello, everyone";
+        badge = 2;
+        sound = default;
+    };
+}
+也可以是一个JSON的Dictionary
+其格式如下：
+* body
+* action-loc-key
+* loc-key
+* loc-args
+* launch-image
+{
+    action =     {
+        type = 4;
+    };
+    aps =     {
+        alert = "hello, everyone";
+        badge = 4;
+    };
+}
+</pre>
+
+<h5 id="NO-5-到目前为止Push服务器就可以推送消息给APNS了吗？"><a href="#NO-5-到目前为止Push服务器就可以推送消息给APNS了吗？" class="headerlink" title="NO 5:到目前为止Push服务器就可以推送消息给APNS了吗？"></a>NO 5:到目前为止Push服务器就可以推送消息给APNS了吗？</h5><p>如果你回答是那就麻烦了。如果是这样的话你试想这样成立的话，那么苹果APNS就不知道是哪个app的推送服务了，只要手机安装的app。都有 dang 、dang 弹出推送提示吗？<br>所以Push服务器要想给APNS服务器推送消息，必须需要一个和APNS连接的证书，反正需要一个叫做 .pem的证书文件。<br><br>注册消息推送服务后回得到两个证书<br><br>1、<code>Push.p12</code> to pem1<br><br>2、<code>aps_developer_identity.cer</code> to pem2<br><br>3、pem1 + pem2 = pem（合并）</p>
+<p><a href="http://blog.csdn.net/silencetq/article/details/8115501" target="_blank" rel="external">pem证书的制作</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/iTerm/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1381,242 +1744,6 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/哗啦啦点餐/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/哗啦啦点餐/" itemprop="url">
-                  哗啦啦点餐
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T22:45:19+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/抽屉新热榜/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/抽屉新热榜/" itemprop="url">
-                  抽屉新热榜
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T22:44:57+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1664,7 +1791,7 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1673,7 +1800,7 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
