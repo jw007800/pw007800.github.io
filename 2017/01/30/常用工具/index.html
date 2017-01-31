@@ -116,7 +116,11 @@ Oh My Zsh是一款社区驱动的命令行工具，正如它的主页上说的�
 <meta property="og:image" content="http://yoursite.com/2017/01/30/常用工具/1.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/30/常用工具/2.png">
 <meta property="og:image" content="https://w7.sanwen8.cn/mmbiz/8ZFzrRjqato5dJuN6cPJ7ykLpL7Hb1icudEGaJdxWlTo5Lp3Ldic8Dm4ky01RibuLSLuH062MDTAlTrPe8SjHhIYQ/0?wx_fmt=jpeg">
-<meta property="og:updated_time" content="2017-01-30T15:05:46.000Z">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/72f2af1bgw1e4nxuk9fvqg20g80bi4qr.gif">
+<meta property="og:image" content="http://static.open-open.com/news/uploadImg/20150831/20150831162141_613.jpg">
+<meta property="og:image" content="http://static.open-open.com/news/uploadImg/20150831/20150831162141_867.jpg">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/776445/201611/776445-20161125172240815-1527913.png">
+<meta property="og:updated_time" content="2017-01-31T10:11:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用工具">
 <meta name="twitter:description" content="工欲善其事必先利其器
@@ -466,10 +470,204 @@ bbedit                   go                       repo
 <h3 id="命令行工具-HomeBrew"><a href="#命令行工具-HomeBrew" class="headerlink" title="命令行工具 HomeBrew"></a>命令行工具 HomeBrew</h3><p><a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">Homebrew官网</a></p>
 <h4 id="什么是HomeBrew"><a href="#什么是HomeBrew" class="headerlink" title="什么是HomeBrew"></a>什么是HomeBrew</h4><p>macOS 不可或缺的套件管理器,又提示缺少套件啦？别担心，Homebrew 随时守候。</p>
 <h4 id="Homebrew安装"><a href="#Homebrew安装" class="headerlink" title="Homebrew安装"></a>Homebrew安装</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></div></pre></td></tr></table></figure>
+<hr>
 <h4 id="Homebrew使用"><a href="#Homebrew使用" class="headerlink" title="Homebrew使用"></a>Homebrew使用</h4><p>搜索软件：brew search 软件名，如brew search autojump</p>
 <p>安装软件：brew install 软件名，如brew install autojump</p>
 <p>卸载软件：brew remove 软件名，如brew remove autojump</p>
-<h3 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h3><h3 id="Xcode常用插件"><a href="#Xcode常用插件" class="headerlink" title="Xcode常用插件"></a>Xcode常用插件</h3>
+<hr>
+<h3 id="xctool-自动打包"><a href="#xctool-自动打包" class="headerlink" title="xctool 自动打包"></a>xctool 自动打包</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>xctool是facebook开源的一个命令行工具，用来替代苹果的xcodebuild工具</p>
+<p>功能如下：</p>
+<p>像xcode一样跑测试用例</p>
+<p>结构化输出编译测试结果</p>
+<p>彩色且方便阅读的编译内容输出</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/72f2af1bgw1e4nxuk9fvqg20g80bi4qr.gif" alt=""></p>
+<p>之后我们专门开一篇专门讲  <a href="/2017/01/31/ios自动打包分发/" title="ios自动打包分发">ios自动打包分发</a></p>
+<h4 id="如何安装xctool"><a href="#如何安装xctool" class="headerlink" title="如何安装xctool"></a>如何安装xctool</h4><p>最简单的办法是通过homebrew安装 xctool</p>
+<p><code>brew install xctool</code></p>
+<h4 id="如何使用xctool"><a href="#如何使用xctool" class="headerlink" title="如何使用xctool"></a>如何使用xctool</h4><p><strong>打包</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  archive</div><div class="line">```  </div><div class="line">**build**</div><div class="line">```c</div><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  build</div><div class="line">```  </div><div class="line">**测试**</div><div class="line">```c</div><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  test</div></pre></td></tr></table></figure></p>
+<h3 id="mitmproxy-抓包"><a href="#mitmproxy-抓包" class="headerlink" title="mitmproxy 抓包"></a>mitmproxy 抓包</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>mitmproxy是一款支持SSL的HTTP代理，它可以用于调试HTTP通信，发起中间人攻击等。mitmproxy提供了一个控制台接口用于动态拦 截和编辑HTTP数据包。mitmdump是mitmproxy的命令行版本，功能与其相同，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;测试，移动端调试，渗透测试的工具。</p>
+<h4 id="工作原理介绍（以HTTPS为例）"><a href="#工作原理介绍（以HTTPS为例）" class="headerlink" title="工作原理介绍（以HTTPS为例）"></a>工作原理介绍（以HTTPS为例）</h4><p>1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，</p>
+<p>2.mitmproxy作出响应(200)，模拟已经建立了CONNECT通信管道，</p>
+<p>3.客户端确信它正在和远端服务器会话，然后启动SSL连接。在SSL连接中指明了它正在连接的主机名(SNI)，</p>
+<p>4.mitmproxy连接服务器，然后使用客户端发出的SNI指示的主机名建立SSL连接，</p>
+<p>5.服务器以匹配的SSL证书作出响应，这个SSL证书里包含生成的拦截证书所必须的通用名(CN)和服务器备用名(SAN)，</p>
+<p>6.mitmproxy生成拦截证书，然后继续进行与第３步暂停的客户端SSL握手，</p>
+<p>7.客户端通过已经建立的SSL连接发送请求，</p>
+<p>8.mitmproxy通过第４步建立的SSL连接传递这个请求给服务器。</p>
+<p><img src="http://static.open-open.com/news/uploadImg/20150831/20150831162141_613.jpg" alt=""></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><code>brew insatll readline Python</code></p>
+<p><code>brew install mitmproxy</code>                            </p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>手机和电脑连接同一个wifi，然后设置代理。进入WLAN，找到当前连接的wifi，长按，弹出的框中选择“修改网络”，进入后，选择“显示高级选项”，代理选择为“手动”，代理服务器主机名设置为mac端的ip地址，端口号是跟刚刚设置的2386，设好后保存(端口默认8080)</p>
+<p><strong>启动</strong>    mitmproxy  or  mitmproxy -p 2386</p>
+<p>界面如下：</p>
+<p><img src="http://static.open-open.com/news/uploadImg/20150831/20150831162141_867.jpg" alt=""></p>
+<h4 id="mitmproxy基本操作"><a href="#mitmproxy基本操作" class="headerlink" title="mitmproxy基本操作"></a>mitmproxy基本操作</h4><p>详细操作在这里可以找到：<a href="http://mitmproxy.org/doc/mitmproxy.html" target="_blank" rel="external">http://mitmproxy.org/doc/mitmproxy.html</a> 。我在这里只列出一些经常用到的命令。</p>
+<p>其实命令基本和vi一致。</p>
+<pre>
+C 清空控制台
+tab 请求/响应切换
+q 返回上一个界面
+m 在响应结果中，输入m可以选择body的呈现方式，比如json，xml等
+e 编辑请求、响应
+a 发送编辑后的请求、响应
+</pre>
+
+<p>一般抓包我还是喜欢用<strong>Charles</strong>，省去了终端里一大堆命令</p>
+<p><a href="http://blog.devtang.com/2015/11/14/charles-introduction/" target="_blank" rel="external">Charles使用教程</a></p>
+<h3 id="mobileprovision-read"><a href="#mobileprovision-read" class="headerlink" title="mobileprovision-read"></a>mobileprovision-read</h3><h4 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h4><p>这个命令工具就是读取mobileprovision文件内容。</p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>curl <a href="https://raw.githubusercontent.com/0xc010d/mobileprovision-read/master/main.m" target="_blank" rel="external">https://raw.githubusercontent.com/0xc010d/mobileprovision-read/master/main.m</a> | clang -framework Foundation -framework Security -o /usr/local/bin/mobileprovision-read -x objective-c -</p>
+<p>这条命令的作用是下载mobileprovision-read的源码，然后编译，最后把生成的二进制文件mobileprovision-read放入到/usr/local/bin/路径下</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p><code>mobileprovision-read -f xxx.mobileprovision</code></p>
+<h4 id="钥匙串中证书-cer文件查看"><a href="#钥匙串中证书-cer文件查看" class="headerlink" title="钥匙串中证书.cer文件查看"></a>钥匙串中证书.cer文件查看</h4><p>钥匙串访问（keychain access.app）中断各种证书，如何查看他们的公钥和私钥信息呢，比如如下证书中的公私钥信息呢<br><img src="http://images2015.cnblogs.com/blog/776445/201611/776445-20161125172240815-1527913.png" alt=""><br>需要右键将其导出成.p12文件，之后将.p12文件转成.pem文件，转成.pem的方法使用下面的命令<br>openssl pkcs12 -in xxx.p12 -out xxx.pem -nodes<br>之后用记事本打开xxx.pem文件，就能读到公钥私钥了</p>
+<h3 id="PlistBuddy-操作plist"><a href="#PlistBuddy-操作plist" class="headerlink" title="PlistBuddy 操作plist"></a>PlistBuddy 操作plist</h3><p>操作plist文件，参考 <a href="http://blog.csdn.net/a351945755/article/details/46561249" target="_blank" rel="external">http://blog.csdn.net/a351945755/article/details/46561249</a></p>
+<h3 id="xcrun-打包"><a href="#xcrun-打包" class="headerlink" title="xcrun 打包"></a>xcrun 打包</h3><h4 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h4><p>XCode 默认编译出来的是appName.app 包，而iphone，ipad的安装文件是ipa文件。<br>将.app包打包成ipa最简单的方式是将appName.app 拖放到itunes中，然后在itunes的相关目录中找到appName.ipa，但这样<strong>测试</strong>的时候没生成一个版本都有重新做一遍。<br>使用xcrun命令可以帮我们自动完成打包工作，可以方便的测试，并且可以指定签名，生成不同的版本。<br>当然对于提供给越狱用户的应用也很有意义。</p>
+<h4 id="xrun的使用方法如下："><a href="#xrun的使用方法如下：" class="headerlink" title="xrun的使用方法如下："></a>xrun的使用方法如下：</h4><pre>
+/usr/bin/xcrun -sdk iphoneos PackageApplication -v "${RELEASE_BUILDDIR}/${APPLICATION_NAME}.app" -o "${BUILD_HISTORY_DIR}/${APPLICATION_NAME}.ipa" --sign "${DEVELOPER_NAME}" --embed "${PROVISONING_PROFILE}”
+</pre>
+
+<p>当然你可以把上面的命令添加到XCode build Phase中，项目编译完成自动打包。</p>
+<h4 id="xcodebuild和xcrun组合使用"><a href="#xcodebuild和xcrun组合使用" class="headerlink" title="xcodebuild和xcrun组合使用"></a>xcodebuild和xcrun组合使用</h4><p>通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。</p>
+<p><strong>常见步骤如下：</strong></p>
+<p>1、清理工程<br><code>/usr/bin/xcodebuild -target targetName clean</code></p>
+<p>2、编译工程<br><code>/usr/bin/xcodebuild -target targetName</code><br>3、打包</p>
+<p><code>/usr/bin/xcrun -sdk iphoneos PackageApplication -v path/To/xxx.app -o xxx.ipa</code><br> 如果是含签名的包，上面两个命令需要增加一些参数。</p>
+<p><code>xcodebuild -target targetName CODE_SIGN_IDENTITY=&quot;iPhone Distribution:XXXXXX&quot;</code></p>
+<p><code>xcrun -sdk iphoneos PackageApplication -v 源app路径 -o 输出的ipa路径 --sign &quot;iPhone Distribution:XXXXXX&quot;</code></p>
+<p>自动打包步骤：</p>
+<p>1、先用xocde手动编译好一个App，假设为MyApp.app</p>
+<p>2、导入证书文件到MAC的钥匙链</p>
+<p>//创建钥匙链</p>
+<p><code>security create-keychain -p myapp myapp.keychain</code></p>
+<p>//解锁，否则回弹框等待输入密码</p>
+<p>security unlock-keychain -p myapp myapp.keychain</p>
+<p>//导入证书</p>
+<p><code>security import /opt/myapp.p12 -k myapp.keychain -P mypassword -T /usr/bin/codesign</code></p>
+<p>3、以MyApp.app为模板，copy一个备份，然后进行各种资源的替换，比如替换了应用的图片文件等</p>
+<p>4、替换对应的*.mobileprovision文件到MyApp.app目录</p>
+<p>5、删除MyApp.app下的签名信息_CodeSignature</p>
+<p>6、修改info.plist Bundle indentifier和*.mobileprovision一致</p>
+<p>7、重签名codesign</p>
+<pre>
+/usr/bin/codesign --force --sign 9c8b212f6a2c2382847b104e387a01b246d4ce42 --resource-rules=MyApp.app/ResourceRules.plist --entitlements MyApp.xcent Mkey3G.app
+</pre>
+
+<p>9、生成ipa包</p>
+<pre>
+/usr/bin/xcrun -sdk iphoneos  PackageApplication -v MyApp.app -o MyApp.ipa  --sign  9c8b212f6a2c2382847b104e387a01b246d4ce42 --embed MyApp.app/embed.mobileprovision
+</pre>
+
+<p>10、删除钥匙链</p>
+<p><code>security delete-keychain myapp.keychain</code></p>
+<p><strong>带xcodebuild编译的打包步骤如下：</strong></p>
+<p>导入钥匙链</p>
+<p>对工程clean</p>
+<p>修改info信息</p>
+<p>修改project信息</p>
+<p>xcodebuild</p>
+<p>替换各种资源文件</p>
+<p>修改xcent</p>
+<p>重新签名codesign</p>
+<p>xcrun打ipa</p>
+<p>删除钥匙链</p>
+<p>在  <strong><a href="/2017/01/31/ios自动打包分发/" title="ios自动打包分发">ios自动打包分发</a></strong> 中我们会用到Shell脚步自动打包</p>
+<h3 id="agvtool-版本号"><a href="#agvtool-版本号" class="headerlink" title="agvtool 版本号"></a>agvtool 版本号</h3><h4 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h4><p>在实际开发中，经常会遇到批量版本号更新的问题，一般情况下都是手动修改，但是笔者最近在看官方文档的时候发现了苹果提供的自动化工具，特此分享。</p>
+<p>版本号和编译号分别是代表了正式发布版本和内部版本， agvtool 是一个自动增加版本号的命令行工具。</p>
+<p>注意：版本号是给用户看的，用于标明当前的发行版本，并且被存储在 App 的 Info.plist 文件的 CFBundleShortVersionString (Bundle versions string, short) 中。编译号是内部使用的，用于标明未发行或者已内部发行的应用程序，并且它被存储在 Info.plist 文件的 CFBundleVersion (Bundle version) 中。</p>
+<p>注意：如果应用程序包含了多个目标（target）， agvtool 工具将会把所有目标都设置为同一个版本号和编译号。</p>
+<h4 id="Xcode设置"><a href="#Xcode设置" class="headerlink" title="Xcode设置"></a>Xcode设置</h4><p><strong>启用 agvtool</strong></p>
+<p>选择 <code>Build Settings</code> 更新下列所有编译选项。</p>
+<p>1 设置 <code>Current Project Version</code> 为选定的值</p>
+<p>Xcode 工程文件 <code>project.pbxproj</code> 包含了 <code>CURRENT_PROJECT_VERSION</code> (Current Project Version) 编译设定，这个编译设定指定了当前工程的版本。 <code>agvtool</code> 会搜索此编译选项。如果这个值存在就运行，否则不运行，这个值用来更新编译号。</p>
+<p><strong><em>注意：</em></strong> <code>Current Project Version</code> 的值必须是整数或者浮点数，新工程最好设置为1。</p>
+<p>2 设置 <code>Versioning System</code> 为 <code>Apple Generic</code></p>
+<p>默认情况下苹果不使用任何版本系统，设置为 Apple Generic 确保 Xcode 包含全部的 agvtool 生成的版本信息。</p>
+<p><strong>设置版本和编译号</strong></p>
+<p>agvtool 从 Info.plist 文件搜索版本和编译号。如果存在就更新，不存在就不执行。确保 CFBundleVersion (Bundle version) 和 CFBundleShortVersionString (Bundle versions string, short) 存在。</p>
+<p><strong>命令行</strong></p>
+<p>退出 Xcode，在终端下进入到包含 .xcodeproj 工程文件的目录， .xcodeproj 文件包含了 project.pbxproj 文件。或者打开包含内容用txt打开。</p>
+<h4 id="更新版本号"><a href="#更新版本号" class="headerlink" title="更新版本号"></a>更新版本号</h4><p>使用下列命令更新版本号：</p>
+<p><code>agvtool new-marketing-version &lt;your_specific_version&gt;</code></p>
+<p>例如：</p>
+<pre>
+$ xcrun agvtool new-marketing-version 2.0
+Setting CFBundleShortVersionString of project MyProject to:
+    2.0.
+
+Updating CFBundleShortVersionString in Info.plist(s)...
+
+Updated CFBundleShortVersionString in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2.0
+</pre>
+
+<h4 id="更新编译号"><a href="#更新编译号" class="headerlink" title="更新编译号"></a>更新编译号</h4><p>使用下列命令自动更新编译号：</p>
+<p><code>agvtool next-version -all</code></p>
+<p>例如：</p>
+<pre>
+$ xcrun agvtool next-version -all
+Setting version of project MyProject to:
+    2.
+
+Also setting CFBundleVersion key (assuming it exists)
+
+Updating CFBundleVersion in Info.plist(s)...
+
+Updated CFBundleVersion in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2
+</pre>
+
+<p><strong><em>注意：*</em></strong> 此命令是将工程编译号自动增加为下一个最大的整数。例如从2到3、1.3到2。</p>
+<h4 id="将编译号设置为指定版本"><a href="#将编译号设置为指定版本" class="headerlink" title="将编译号设置为指定版本"></a>将编译号设置为指定版本</h4><p>运行下列命令：</p>
+<p>`agvtool new-version -all <your_specific_version>``</your_specific_version></p>
+<p>例如将编译号设置为2.6.9：</p>
+<pre>
+$ xcrun agvtool new-version -all 2.6.9
+Setting version of project MyProject to:
+    2.6.9
+
+Also setting CFBundleVersion key (assuming it exists)
+
+Updating CFBundleVersion in Info.plist(s)...
+
+Updated CFBundleVersion in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2.6.9
+</pre>
+
+<h4 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h4><p>使用以下命令查看当前版本号：</p>
+<p><code>agvtool what-marketing-version</code></p>
+<p>例如：</p>
+<pre>
+$ xcrun agvtool what-marketing-version
+No marketing version number (CFBundleShortVersionString) found for Jambase targets.
+
+Looking for marketing version in native targets...
+Looking for marketing version (CFBundleShortVersionString) in native targets...
+
+Found CFBundleShortVersionString of "2.0" in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist"
+</pre>
+
+<p>使用以下命令查看当前编译号：</p>
+<p><code>agvtool what-version</code></p>
+<p>例如：</p>
+<pre>
+xcrun agvtool what-version
+Current version of project MyProject is:
+    2.2
+</pre>
+
+
+<h3 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h3><p>wget是一个下载文件的工具,它用在命令行下</p>
+<p><a href="http://www.jb51.net/LINUXjishu/86326.html" target="_blank" rel="external">参考</a></p>
+<h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><p><code>brew install wget</code></p>
+<h3 id="sips-批量处理图片"><a href="#sips-批量处理图片" class="headerlink" title="sips 批量处理图片"></a>sips 批量处理图片</h3><h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p>如果你想批量修改一批图片（尺寸、旋转、反转等），但是你有不会或没有PS，怎么办呢？使用sips命令可以高效完成这些功能，例如：</p>
+<p>#把当前用户图片文件夹下的所有JPG图片宽度缩小为800px，高度按比例缩放</p>
+<p><code>sips -Z 800 ~/Pictures/*.JPG</code></p>
+<p>顺时针旋转90˚</p>
+<p><code>sips -r 90 ~/Pictures/*.JPG</code></p>
+<p>垂直反转</p>
+<p><code>sips -f vertical ~/Pictures/*.JPG</code></p>
+<p>更多命令可以用sips -h查看。</p>
+<h3 id="vi-命令大全"><a href="#vi-命令大全" class="headerlink" title="vi 命令大全"></a><a href="http://www.cnblogs.com/mahang/archive/2011/09/01/2161672.html" target="_blank" rel="external">vi 命令大全</a></h3><hr>
+<h3 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h3><p>下载地址 macx.cn</p>
+<h4 id="Charles-抓包"><a href="#Charles-抓包" class="headerlink" title="Charles 抓包"></a>Charles 抓包</h4><h4 id="cheatsheet-快捷键提醒工具"><a href="#cheatsheet-快捷键提醒工具" class="headerlink" title="cheatsheet 快捷键提醒工具"></a>cheatsheet 快捷键提醒工具</h4><h4 id=""><a href="#" class="headerlink" title=""></a><a href="/2017/01/30/iTerm/" title="iTerm">iTerm</a></h4><h4 id="cornerstone"><a href="#cornerstone" class="headerlink" title="cornerstone"></a>cornerstone</h4><h4 id="Reveal-分析IOS-app-UI-结构利器"><a href="#Reveal-分析IOS-app-UI-结构利器" class="headerlink" title="Reveal 分析IOS app UI 结构利器"></a>Reveal 分析IOS app UI 结构利器</h4><h4 id="Raw"><a href="#Raw" class="headerlink" title="Raw"></a>Raw</h4><h4 id="Raw-1"><a href="#Raw-1" class="headerlink" title="Raw"></a>Raw</h4><h4 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h4><h4 id="subline"><a href="#subline" class="headerlink" title="subline"></a>subline</h4><h4 id="Day-one-笔记"><a href="#Day-one-笔记" class="headerlink" title="Day one 笔记"></a>Day one 笔记</h4><h4 id="Go2Shell"><a href="#Go2Shell" class="headerlink" title="Go2Shell"></a>Go2Shell</h4><h4 id="Do-http"><a href="#Do-http" class="headerlink" title="Do http"></a>Do http</h4><h4 id="Lantern-蓝灯翻墙"><a href="#Lantern-蓝灯翻墙" class="headerlink" title="Lantern 蓝灯翻墙"></a>Lantern 蓝灯翻墙</h4><p>先这样….. 慢慢在更新</p>
+<hr>
+<h3 id="Xcode常用插件"><a href="#Xcode常用插件" class="headerlink" title="Xcode常用插件"></a>Xcode常用插件</h3><h4 id="Alcatraz-Xcode-插件管理"><a href="#Alcatraz-Xcode-插件管理" class="headerlink" title="Alcatraz Xcode  插件管理"></a>Alcatraz Xcode  插件管理</h4><h4 id="AdjustFontSize-cmd-来调整字体大小"><a href="#AdjustFontSize-cmd-来调整字体大小" class="headerlink" title="AdjustFontSize cmd + - 来调整字体大小"></a>AdjustFontSize cmd + - 来调整字体大小</h4><h4 id="VVDocumenter-Xcode-快速添加添加代码注视"><a href="#VVDocumenter-Xcode-快速添加添加代码注视" class="headerlink" title="VVDocumenter-Xcode 快速添加添加代码注视"></a>VVDocumenter-Xcode 快速添加添加代码注视</h4><h4 id="XAlign-自动对齐代码的插件"><a href="#XAlign-自动对齐代码的插件" class="headerlink" title="XAlign 自动对齐代码的插件"></a>XAlign 自动对齐代码的插件</h4><h4 id="KSImageNamed-Xcode"><a href="#KSImageNamed-Xcode" class="headerlink" title="KSImageNamed-Xcode"></a>KSImageNamed-Xcode</h4>
       
     </div>
 
@@ -510,6 +708,10 @@ bbedit                   go                       repo
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/31/ios自动打包分发/" rel="prev" title="ios自动打包分发">
+                ios自动打包分发 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -579,7 +781,7 @@ bbedit                   go                       repo
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -682,7 +884,7 @@ bbedit                   go                       repo
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行工具-Oh-My-Zsh"><span class="nav-number">1.</span> <span class="nav-text">命令行工具 Oh-My-Zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#他也是Shell"><span class="nav-number">1.1.</span> <span class="nav-text">他也是Shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zsh具有以下主要功能"><span class="nav-number">1.2.</span> <span class="nav-text">Zsh具有以下主要功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Oh-My-Zsh"><span class="nav-number">1.3.</span> <span class="nav-text">安装Oh My Zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Oh-My-Zsh目录结构"><span class="nav-number">1.4.</span> <span class="nav-text">Oh My Zsh目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置主题"><span class="nav-number">1.5.</span> <span class="nav-text">设置主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件"><span class="nav-number">1.6.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取代bash，设为默认shell"><span class="nav-number">1.7.</span> <span class="nav-text">取代bash，设为默认shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新oh-my-zsh"><span class="nav-number">1.8.</span> <span class="nav-text">更新oh my zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载oh-my-zsh"><span class="nav-number">1.9.</span> <span class="nav-text">卸载oh my zsh</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行工具-HomeBrew"><span class="nav-number">2.</span> <span class="nav-text">命令行工具 HomeBrew</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是HomeBrew"><span class="nav-number">2.1.</span> <span class="nav-text">什么是HomeBrew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew安装"><span class="nav-number">2.2.</span> <span class="nav-text">Homebrew安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew使用"><span class="nav-number">2.3.</span> <span class="nav-text">Homebrew使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用软件"><span class="nav-number">3.</span> <span class="nav-text">常用软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode常用插件"><span class="nav-number">4.</span> <span class="nav-text">Xcode常用插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行工具-Oh-My-Zsh"><span class="nav-number">1.</span> <span class="nav-text">命令行工具 Oh-My-Zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#他也是Shell"><span class="nav-number">1.1.</span> <span class="nav-text">他也是Shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zsh具有以下主要功能"><span class="nav-number">1.2.</span> <span class="nav-text">Zsh具有以下主要功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Oh-My-Zsh"><span class="nav-number">1.3.</span> <span class="nav-text">安装Oh My Zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Oh-My-Zsh目录结构"><span class="nav-number">1.4.</span> <span class="nav-text">Oh My Zsh目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置主题"><span class="nav-number">1.5.</span> <span class="nav-text">设置主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插件"><span class="nav-number">1.6.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取代bash，设为默认shell"><span class="nav-number">1.7.</span> <span class="nav-text">取代bash，设为默认shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新oh-my-zsh"><span class="nav-number">1.8.</span> <span class="nav-text">更新oh my zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载oh-my-zsh"><span class="nav-number">1.9.</span> <span class="nav-text">卸载oh my zsh</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行工具-HomeBrew"><span class="nav-number">2.</span> <span class="nav-text">命令行工具 HomeBrew</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是HomeBrew"><span class="nav-number">2.1.</span> <span class="nav-text">什么是HomeBrew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew安装"><span class="nav-number">2.2.</span> <span class="nav-text">Homebrew安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Homebrew使用"><span class="nav-number">2.3.</span> <span class="nav-text">Homebrew使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xctool-自动打包"><span class="nav-number">3.</span> <span class="nav-text">xctool 自动打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何安装xctool"><span class="nav-number">3.2.</span> <span class="nav-text">如何安装xctool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用xctool"><span class="nav-number">3.3.</span> <span class="nav-text">如何使用xctool</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mitmproxy-抓包"><span class="nav-number">4.</span> <span class="nav-text">mitmproxy 抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-1"><span class="nav-number">4.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作原理介绍（以HTTPS为例）"><span class="nav-number">4.2.</span> <span class="nav-text">工作原理介绍（以HTTPS为例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">4.3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置"><span class="nav-number">4.4.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mitmproxy基本操作"><span class="nav-number">4.5.</span> <span class="nav-text">mitmproxy基本操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mobileprovision-read"><span class="nav-number">5.</span> <span class="nav-text">mobileprovision-read</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-2"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-1"><span class="nav-number">5.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">5.3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#钥匙串中证书-cer文件查看"><span class="nav-number">5.4.</span> <span class="nav-text">钥匙串中证书.cer文件查看</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlistBuddy-操作plist"><span class="nav-number">6.</span> <span class="nav-text">PlistBuddy 操作plist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcrun-打包"><span class="nav-number">7.</span> <span class="nav-text">xcrun 打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-3"><span class="nav-number">7.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xrun的使用方法如下："><span class="nav-number">7.2.</span> <span class="nav-text">xrun的使用方法如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xcodebuild和xcrun组合使用"><span class="nav-number">7.3.</span> <span class="nav-text">xcodebuild和xcrun组合使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#agvtool-版本号"><span class="nav-number">8.</span> <span class="nav-text">agvtool 版本号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-4"><span class="nav-number">8.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xcode设置"><span class="nav-number">8.2.</span> <span class="nav-text">Xcode设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新版本号"><span class="nav-number">8.3.</span> <span class="nav-text">更新版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新编译号"><span class="nav-number">8.4.</span> <span class="nav-text">更新编译号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将编译号设置为指定版本"><span class="nav-number">8.5.</span> <span class="nav-text">将编译号设置为指定版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看版本号"><span class="nav-number">8.6.</span> <span class="nav-text">查看版本号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wget"><span class="nav-number">9.</span> <span class="nav-text">wget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-2"><span class="nav-number">9.1.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sips-批量处理图片"><span class="nav-number">10.</span> <span class="nav-text">sips 批量处理图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-5"><span class="nav-number">11.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vi-命令大全"><span class="nav-number">12.</span> <span class="nav-text">vi 命令大全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用软件"><span class="nav-number">13.</span> <span class="nav-text">常用软件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Charles-抓包"><span class="nav-number">13.1.</span> <span class="nav-text">Charles 抓包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cheatsheet-快捷键提醒工具"><span class="nav-number">13.2.</span> <span class="nav-text">cheatsheet 快捷键提醒工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">13.3.</span> <span class="nav-text">iTerm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cornerstone"><span class="nav-number">13.4.</span> <span class="nav-text">cornerstone</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reveal-分析IOS-app-UI-结构利器"><span class="nav-number">13.5.</span> <span class="nav-text">Reveal 分析IOS app UI 结构利器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Raw"><span class="nav-number">13.6.</span> <span class="nav-text">Raw</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Raw-1"><span class="nav-number">13.7.</span> <span class="nav-text">Raw</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Atom"><span class="nav-number">13.8.</span> <span class="nav-text">Atom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subline"><span class="nav-number">13.9.</span> <span class="nav-text">subline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Day-one-笔记"><span class="nav-number">13.10.</span> <span class="nav-text">Day one 笔记</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go2Shell"><span class="nav-number">13.11.</span> <span class="nav-text">Go2Shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Do-http"><span class="nav-number">13.12.</span> <span class="nav-text">Do http</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lantern-蓝灯翻墙"><span class="nav-number">13.13.</span> <span class="nav-text">Lantern 蓝灯翻墙</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode常用插件"><span class="nav-number">14.</span> <span class="nav-text">Xcode常用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Alcatraz-Xcode-插件管理"><span class="nav-number">14.1.</span> <span class="nav-text">Alcatraz Xcode  插件管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AdjustFontSize-cmd-来调整字体大小"><span class="nav-number">14.2.</span> <span class="nav-text">AdjustFontSize cmd + - 来调整字体大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VVDocumenter-Xcode-快速添加添加代码注视"><span class="nav-number">14.3.</span> <span class="nav-text">VVDocumenter-Xcode 快速添加添加代码注视</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XAlign-自动对齐代码的插件"><span class="nav-number">14.4.</span> <span class="nav-text">XAlign 自动对齐代码的插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KSImageNamed-Xcode"><span class="nav-number">14.5.</span> <span class="nav-text">KSImageNamed-Xcode</span></a></li></ol></li></ol></div>
             
 
           </div>
