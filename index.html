@@ -275,7 +275,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/IOS设置版本号/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/CocoaPods之制作篇/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="songjie">
@@ -300,8 +300,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/01/IOS设置版本号/" itemprop="url">
-                  IOS设置版本号
+                <a class="post-title-link" href="/2017/02/01/CocoaPods之制作篇/" itemprop="url">
+                  CocoaPods之制作篇
                 </a>
               
             
@@ -317,7 +317,908 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T12:09:47+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T22:15:17+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集成/" itemprop="url" rel="index">
+                    <span itemprop="name">集成</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>学会使用别人的Pods依赖库以后，你一定对创建自己的依赖库跃跃欲试，今天就来揭开Pods依赖库创建过程的神秘面纱</strong></p>
+<h3 id="创建自己的github仓库"><a href="#创建自己的github仓库" class="headerlink" title="创建自己的github仓库"></a>创建自己的github仓库</h3><p><strong><a href="https://github.com" target="_blank" rel="external">https://github.com</a></strong><br></p>
+<ol>
+<li>登陆github.</li>
+<li>New repository</li>
+</ol>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200447379.jpg" alt="20140304200447379.jpg" title="">
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、Repository name 仓库名称，这里写成WZMarqueeView，必填的</div><div class="line"><span class="number">2</span>、Description 仓库的描述信息，可选的</div><div class="line"><span class="number">3</span>、仓库的公开性 这里只能选Public，一个是因为Private是要<span class="section">money</span>的，再一个Private别人看不到还共享个毛</div><div class="line"><span class="number">4</span>、是否创建一个默认的README文件 一个完整地仓库，都需要README说明文档，建议选上。当然不嫌麻烦的话你也可以后面再手动创建一个</div><div class="line"><span class="number">5</span>、是否添加.gitignore文件 .gitignore文件里面记录了若干中文件类型，凡是该文件包含的文件类型，git都不会将其纳入到版本管理中。是否选择看个人需要</div><div class="line"><span class="number">6</span>、license类型 正规的仓库都应该有一个license文件，Pods依赖库对这个文件的要求更严，是必须要有的。因此最好在这里让github创建一个，也可以自己后续再创建。我使用的license类型是MIT</div></pre></td></tr></table></figure>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200447380.jpg" alt="20140304200447380.jpg" title="">
+<p>到这，仓库创建过程就结束了。</p>
+<hr>
+<h3 id="clone仓库到本地"><a href="#clone仓库到本地" class="headerlink" title="clone仓库到本地"></a>clone仓库到本地</h3><ol>
+<li>点击 Clone in Desktop （建议安装 github Desktop MAC 客户端）</li>
+<li>默认应该有 README.md 文件</li>
+</ol>
+<h3 id="添加-podspec文件"><a href="#添加-podspec文件" class="headerlink" title="添加.podspec文件"></a>添加.podspec文件</h3><ol>
+<li>podspec文件的制作。ruby 格式 和 json格式</li>
+<li>默认应该有 README.md 文件</li>
+<li>copy 与 pod spec create your_pod_spec_name (反正我是copy后直接改)</li>
+<li><a href="http://iiiyu.com/2013/03/01/learning-ios-notes-sixteen/" target="_blank" rel="external">@参考</a></li>
+</ol>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Be sure to run `pod spec lint SIStore.podspec' to ensure this is a</span></div><div class="line"><span class="comment"># valid spec.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Remove all comments before submitting the spec. Optional attributes are commented.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># For details see: https://github.com/CocoaPods/CocoaPods/wiki/The-podspec-format</span></div><div class="line"><span class="comment">#</span></div><div class="line">Pod::Spec.new do |s|</div><div class="line">  s.<span class="attr">name</span>         = <span class="string">"SIStore"</span></div><div class="line">  s.<span class="attr">version</span>      = <span class="string">"0.0.1"</span></div><div class="line">  s.<span class="attr">summary</span>      = <span class="string">"A short description of SIStore."</span></div><div class="line">  <span class="comment"># s.description  = &lt;&lt;-DESC</span></div><div class="line">  <span class="comment">#                   An optional longer description of SIStore</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment">#                   * Markdown format.</span></div><div class="line">  <span class="comment">#                   * Don't worry about the indent, we strip it!</span></div><div class="line">  <span class="comment">#                  DESC</span></div><div class="line">  s.<span class="attr">homepage</span>     = <span class="string">"http://EXAMPLE/SIStore"</span></div><div class="line">  <span class="comment"># Specify the license type. CocoaPods detects automatically the license file if it is named</span></div><div class="line">  <span class="comment"># `LICEN&#123;C,S&#125;E*.*', however if the name is different, specify it.</span></div><div class="line">  s.<span class="attr">license</span>      = 'MIT (example)'</div><div class="line">  <span class="comment"># s.license      = &#123; :type =&gt; 'MIT (example)', :file =&gt; 'FILE_LICENSE' &#125;</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># Only if no dedicated file is available include the full text of the license.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.license      = &#123;</span></div><div class="line">  <span class="comment">#   :type =&gt; 'MIT (example)',</span></div><div class="line">  <span class="comment">#   :text =&gt; &lt;&lt;-LICENSE</span></div><div class="line">  <span class="comment">#             Copyright (C) &lt;year&gt; &lt;copyright holders&gt;</span></div><div class="line">  <span class="comment">#             All rights reserved.</span></div><div class="line">  <span class="comment">#             Redistribution and use in source and binary forms, with or without</span></div><div class="line">  <span class="comment">#             ...</span></div><div class="line">  <span class="comment">#   LICENSE</span></div><div class="line">  <span class="comment"># &#125;</span></div><div class="line">  <span class="comment"># Specify the authors of the library, with email addresses. You can often find</span></div><div class="line">  <span class="comment"># the email addresses of the authors by using the SCM log. E.g. $ git log</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  s.<span class="attr">author</span>       = &#123; <span class="string">"Xiao ChenYu"</span> =&gt; <span class="string">"apple.iiiyu@gmail.com"</span> &#125;</div><div class="line">  <span class="comment"># s.authors      = &#123; "Xiao ChenYu" =&gt; "apple.iiiyu@gmail.com", "other author" =&gt; "and email address" &#125;</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># If absolutely no email addresses are available, then you can use this form instead.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.author       = 'Xiao ChenYu', 'other author'</span></div><div class="line">  <span class="comment"># Specify the location from where the source should be retrieved.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  s.<span class="attr">source</span>       = &#123; :<span class="attr">git</span> =&gt; <span class="string">"http://EXAMPLE/SIStore.git"</span>, :<span class="attr">tag</span> =&gt; <span class="string">"0.0.1"</span> &#125;</div><div class="line">  <span class="comment"># s.source       = &#123; :svn =&gt; 'http://EXAMPLE/SIStore/tags/1.0.0' &#125;</span></div><div class="line">  <span class="comment"># s.source       = &#123; :hg  =&gt; 'http://EXAMPLE/SIStore', :revision =&gt; '1.0.0' &#125;</span></div><div class="line">  <span class="comment"># If this Pod runs only on iOS or OS X, then specify the platform and</span></div><div class="line">  <span class="comment"># the deployment target.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.platform     = :ios, '5.0'</span></div><div class="line">  <span class="comment"># s.platform     = :ios</span></div><div class="line">  <span class="comment"># ――― MULTI-PLATFORM VALUES ――――――――――――――――――――――――――――――――――――――――――――――――― #</span></div><div class="line">  <span class="comment"># If this Pod runs on both platforms, then specify the deployment</span></div><div class="line">  <span class="comment"># targets.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.ios.deployment_target = '5.0'</span></div><div class="line">  <span class="comment"># s.osx.deployment_target = '10.7'</span></div><div class="line">  <span class="comment"># A list of file patterns which select the source files that should be</span></div><div class="line">  <span class="comment"># added to the Pods project. If the pattern is a directory then the</span></div><div class="line">  <span class="comment"># path will automatically have '*.&#123;h,m,mm,c,cpp&#125;' appended.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># Alternatively, you can use the FileList class for even more control</span></div><div class="line">  <span class="comment"># over the selected files.</span></div><div class="line">  <span class="comment"># (See http://rake.rubyforge.org/classes/Rake/FileList.html.)</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  s.<span class="attr">source_files</span> = 'Classes', 'Classes<span class="comment">/**/</span>*.&#123;h,m&#125;'</div><div class="line">  <span class="comment"># A list of file patterns which select the header files that should be</span></div><div class="line">  <span class="comment"># made available to the application. If the pattern is a directory then the</span></div><div class="line">  <span class="comment"># path will automatically have '*.h' appended.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># Also allows the use of the FileList class like `source_files' does.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># If you do not explicitly set the list of public header files,</span></div><div class="line">  <span class="comment"># all headers of source_files will be made public.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.public_header_files = 'Classes/**/*.h'</span></div><div class="line">  <span class="comment"># A list of resources included with the Pod. These are copied into the</span></div><div class="line">  <span class="comment"># target bundle with a build phase script.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># Also allows the use of the FileList class like `source_files' does.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.resource  = "icon.png"</span></div><div class="line">  <span class="comment"># s.resources = "Resources/*.png"</span></div><div class="line">  <span class="comment"># A list of paths to preserve after installing the Pod.</span></div><div class="line">  <span class="comment"># CocoaPods cleans by default any file that is not used.</span></div><div class="line">  <span class="comment"># Please don't include documentation, example, and test files.</span></div><div class="line">  <span class="comment"># Also allows the use of the FileList class like `source_files' does.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.preserve_paths = "FilesToSave", "MoreFilesToSave"</span></div><div class="line">  <span class="comment"># Specify a list of frameworks that the application needs to link</span></div><div class="line">  <span class="comment"># against for this Pod to work.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.framework  = 'SomeFramework'</span></div><div class="line">  <span class="comment"># s.frameworks = 'SomeFramework', 'AnotherFramework'</span></div><div class="line">  <span class="comment"># Specify a list of libraries that the application needs to link</span></div><div class="line">  <span class="comment"># against for this Pod to work.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.library   = 'iconv'</span></div><div class="line">  <span class="comment"># s.libraries = 'iconv', 'xml2'</span></div><div class="line">  <span class="comment"># If this Pod uses ARC, specify it like so.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.requires_arc = true</span></div><div class="line">  <span class="comment"># If you need to specify any other build settings, add them to the</span></div><div class="line">  <span class="comment"># xcconfig hash.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.xcconfig = &#123; 'HEADER_SEARCH_PATHS' =&gt; '$(SDKROOT)/usr/include/libxml2' &#125;</span></div><div class="line">  <span class="comment"># Finally, specify any Pods that this Pod depends on.</span></div><div class="line">  <span class="comment">#</span></div><div class="line">  <span class="comment"># s.dependency 'JSONKit', '~&gt; 1.4'</span></div><div class="line">end</div></pre></td></tr></table></figure>
+<h4 id="去掉注释-ruby-格式"><a href="#去掉注释-ruby-格式" class="headerlink" title="去掉注释 ruby 格式"></a>去掉注释 ruby 格式</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name         = <span class="string">"SIStore"</span> <span class="comment">#声明库的名称</span></div><div class="line">  s.version      = <span class="string">"0.0.2"</span>   <span class="comment"># 库的版本</span></div><div class="line">  s.summary      = <span class="string">"Sumi Interactive make a new CoreData and iCloud a "</span> <span class="comment">#一个简短的说明文档</span></div><div class="line">  s.homepage     = <span class="string">"http://iiiyu.com"</span> <span class="comment">#库的首页</span></div><div class="line">  s.license      = <span class="string">'MIT'</span> <span class="comment">#库的协议</span></div><div class="line">  s.author       = &#123; <span class="string">"Xiao ChenYu"</span> =&gt; <span class="string">"apple.iiiyu@gmail.com"</span> &#125; <span class="comment">#作者</span></div><div class="line">  s.source       = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"https://iiiyu@bitbucket.org/iiiyu/sistore.git"</span>, <span class="symbol">:tag</span> =&gt; <span class="string">"0.0.2"</span> &#125; <span class="comment">#原代码的地址</span></div><div class="line">  s.source_files = <span class="string">'SIStore/*.&#123;h,m&#125;'</span> <span class="comment">#原代码的目录</span></div><div class="line">  s.preserve_paths  = <span class="string">'SIStoreDemo'</span></div><div class="line">  s.resources    = <span class="string">'SIStore/SIStore.bundle'</span></div><div class="line">  s.framework    = <span class="string">'CoreData'</span> <span class="comment">#需要依赖的系统库</span></div><div class="line">  s.dependency <span class="string">'MagicalRecord'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/iiiyu/MagicalRecord.git'</span>, <span class="symbol">:tag</span> =&gt; <span class="string">'sumiGridDiary2.1'</span></div><div class="line">  s.dependency <span class="string">'SVProgressHUD'</span> <span class="comment">#需要依赖的第三方</span></div><div class="line">  s.requires_arc = <span class="literal">true</span>        <span class="comment">#是否开启arc</span></div><div class="line">  s.platform     = <span class="symbol">:ios</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h4 id="josn格式"><a href="#josn格式" class="headerlink" title="josn格式"></a>josn格式</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"SIStore"</span>,</div><div class="line">    <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">    <span class="attr">"summary"</span>: <span class="string">"A short description of EFJoymeAd."</span>,</div><div class="line">    <span class="attr">"authors"</span>: &#123;</div><div class="line">        <span class="attr">"antonyzhao"</span>: <span class="string">"antonyzhao@staff.joyme.com"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"source"</span>: &#123;</div><div class="line">        <span class="attr">"git"</span>: <span class="string">"https://iiiyu@bitbucket.org/iiiyu/sistore.git"</span>,</div><div class="line">        <span class="attr">"tag"</span>: <span class="string">"1.0.0"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"requires_arc"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"platforms"</span>: &#123;</div><div class="line">        <span class="attr">"ios"</span>: <span class="string">"6.0"</span>,</div><div class="line">        <span class="attr">"osx"</span>: <span class="string">"10.8"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">"public_header_files"</span>: <span class="string">"Pod/Classes/**/*.h"</span>,</div><div class="line">    <span class="attr">"source_files"</span>: <span class="string">"Pod/Classes/**/*.&#123;h,m&#125;"</span>,</div><div class="line">    <span class="attr">"resources"</span>: <span class="string">"Pod/Assets/**/*.*"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong> 通配符说明</strong> <br><br><code>a{bb,bc}def.{h,m}表示四个文件abbdef.h abbdef.m abcdef.h abcdef.m</code><br><br><code>*.{h,m,mm}表示所有的.h .m .mm文件</code> <br><br><code>*.{h,m,mm}表示所有的.h .m .mm文件</code> <br><br><code>Class/**/*.{h,m}表示Class目录下的所有.h .m文件</code> <br></p>
+<h3 id="添加LICENSE文件"><a href="#添加LICENSE文件" class="headerlink" title="添加LICENSE文件"></a>添加LICENSE文件</h3><p><strong>copy一个放进到目录就可以了</strong><br></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">The MIT License (MIT)</div><div class="line"></div><div class="line">Copyright (c) 2013 shu223</div><div class="line"></div><div class="line">Permission is hereby granted, free of charge, to any person obtaining a copy of</div><div class="line">this software and associated documentation files (the "Software"), to deal in</div><div class="line">the Software without restriction, including without limitation the rights to</div><div class="line"><span class="keyword">use</span>, copy, <span class="keyword">modify</span>, <span class="keyword">merge</span>, publish, <span class="keyword">distribute</span>, sublicense, <span class="keyword">and</span>/<span class="keyword">or</span> sell copies <span class="keyword">of</span></div><div class="line">the Software, <span class="keyword">and</span> <span class="keyword">to</span> permit persons <span class="keyword">to</span> whom the Software <span class="keyword">is</span> furnished <span class="keyword">to</span> <span class="keyword">do</span> so,</div><div class="line">subject <span class="keyword">to</span> the <span class="keyword">following</span> conditions:</div><div class="line"></div><div class="line">The above copyright <span class="keyword">notice</span> <span class="keyword">and</span> this permission <span class="keyword">notice</span> shall be included <span class="keyword">in</span> all</div><div class="line">copies <span class="keyword">or</span> substantial portions <span class="keyword">of</span> the Software.</div><div class="line"></div><div class="line">THE SOFTWARE <span class="keyword">IS</span> PROVIDED <span class="string">"AS IS"</span>, <span class="keyword">WITHOUT</span> WARRANTY <span class="keyword">OF</span> <span class="keyword">ANY</span> KIND, EXPRESS <span class="keyword">OR</span></div><div class="line">IMPLIED, <span class="keyword">INCLUDING</span> BUT <span class="keyword">NOT</span> LIMITED <span class="keyword">TO</span> THE WARRANTIES <span class="keyword">OF</span> MERCHANTABILITY, FITNESS</div><div class="line"><span class="keyword">FOR</span> A PARTICULAR PURPOSE <span class="keyword">AND</span> NONINFRINGEMENT. <span class="keyword">IN</span> <span class="keyword">NO</span> <span class="keyword">EVENT</span> SHALL THE <span class="keyword">AUTHORS</span> <span class="keyword">OR</span></div><div class="line">COPYRIGHT HOLDERS BE LIABLE <span class="keyword">FOR</span> <span class="keyword">ANY</span> CLAIM, DAMAGES <span class="keyword">OR</span> OTHER LIABILITY, WHETHER</div><div class="line"><span class="keyword">IN</span> AN <span class="keyword">ACTION</span> <span class="keyword">OF</span> CONTRACT, TORT <span class="keyword">OR</span> OTHERWISE, ARISING <span class="keyword">FROM</span>, <span class="keyword">OUT</span> <span class="keyword">OF</span> <span class="keyword">OR</span> <span class="keyword">IN</span></div><div class="line"><span class="keyword">CONNECTION</span> <span class="keyword">WITH</span> THE SOFTWARE <span class="keyword">OR</span> THE <span class="keyword">USE</span> <span class="keyword">OR</span> OTHER DEALINGS <span class="keyword">IN</span> THE SOFTWARE.</div></pre></td></tr></table></figure>
+<h3 id="添加公共文件"><a href="#添加公共文件" class="headerlink" title="添加公共文件"></a>添加公共文件</h3><p><strong><em>Pod{Assets,Classes} Classes 下放置别人可以pod下来的文件</em></strong></p>
+<h3 id="添加DEMO"><a href="#添加DEMO" class="headerlink" title="添加DEMO"></a>添加DEMO</h3><p><strong><em>Demo必须是可编译通过的，而且需要引入公共文件</em></strong></p>
+<p>到目前为止本地的目录结构以及文件如下：4个</p>
+<img src="/2017/02/01/CocoaPods之制作篇/test-1.png" alt="test-1.png" title="">
+<hr>
+<p>到此为止准备工作已经完成</p>
+<h3 id="pod验证"><a href="#pod验证" class="headerlink" title="pod验证"></a>pod验证</h3><p><strong>执行以下命令：</strong><br></p>
+<ol>
+<li>$ set the new version to 1.0.0<br></li>
+<li>set the new tag to 1.0.0<br><br><code>这两条命令是为pod添加版本号并打上tag。然后执行pod验证命令：</code><br><br>$ pod lib lint<br><br>如果一切正常，这条命令执行完后会出现下面的输出：<br></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> <span class="selector-tag">-</span>&gt; <span class="selector-tag">WZMarqueeView</span> (1<span class="selector-class">.0</span><span class="selector-class">.0</span>)</div><div class="line"></div><div class="line"><span class="selector-tag">WZMarqueeView</span> <span class="selector-tag">passed</span> <span class="selector-tag">validation</span>.</div></pre></td></tr></table></figure>
+<p><strong>如果失败可以 pod lib lint –no-clean   or    pod lib lint –no-clean –verbose  查看详细信息</strong></p>
+<p>到此，pod验证就结束了。 需要说明的是，在执行pod验证命令的时候，打印出了任何warning或者error信息，验证都会失败！如果验证出现异常，打印的信息会很详细，大家可以根据对应提示做出修改。</p>
+<h3 id="本地git仓库修改内容上传到github仓库"><a href="#本地git仓库修改内容上传到github仓库" class="headerlink" title="本地git仓库修改内容上传到github仓库"></a>本地git仓库修改内容上传到github仓库</h3><p>依次执行以下命令：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>git add -A &amp;&amp; git commit -m <span class="string">"Release 1.0.0."</span></div><div class="line"><span class="variable">$ </span>git tag <span class="string">'1.0.0'</span></div><div class="line"><span class="variable">$ </span>git push --tags</div><div class="line"><span class="variable">$ </span>git push origin master</div></pre></td></tr></table></figure>
+<p><strong>上述命令均属git的范畴，这里不多述。如果一切正常，github上就应该能看到自己刚添加的内容了。如下图所示： </strong></p>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200449389.jpg" alt="20140304200449389.jpg" title="">
+<hr>
+<p><strong>Pod search 到了吗？上传podspec文件到CocoaPods官方仓库中</strong></p>
+<p>经过前边的四步操作，你可能以为已经结束了，不幸的是还早着呢。 要想一个Pods依赖库真正可用，还需要做最后一步操作，将我们刚才生成的podspec文件上传到CocoaPods官方的Specs仓库中，链接为：<a href="https://github.com/CocoaPods/Specs" target="_blank" rel="external">https://github.com/CocoaPods/Specs</a> 打开这个链接你就会发现，原来我们能使用的，以及我们使用pod search命令能搜索到的所有Pods依赖库都会把它们的podspec文件上传到这个仓库中，也就是说，只有将我们的podspec文件上传到这个仓库中以后，才能成为一个真正的Pods依赖库，别人才能正常使用！ 按照git的规则，要想向别人的仓库中添加文件，必须先fork一份别人的仓库，做完相应地修改后，在push给仓库的原作者，等到作者审核通过，然后合并到原来的仓库中。 流程明白了以后，自然知道该怎么干了：</p>
+<h4 id="fork一份CocoaPods官方的Specs仓库"><a href="#fork一份CocoaPods官方的Specs仓库" class="headerlink" title="fork一份CocoaPods官方的Specs仓库"></a>fork一份CocoaPods官方的Specs仓库</h4><ul>
+<li>进入到刚才的官方仓库链接中，点击屏幕右上角的fork按钮，如下图：</li>
+</ul>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200449390.jpg" alt="20140304200449390.jpg" title="">
+<ul>
+<li>然后大家会发现自己名下会多一份仓库的分支。比如我的分支为：</li>
+</ul>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200450394.jpg" alt="20140304200450394.jpg" title="">
+<ul>
+<li>fork一份CocoaPods官方的Specs仓库</li>
+<li>将fork的仓库clone到本地</li>
+<li>将自己的podspec文件添加到本地Specs仓库中</li>
+<li>上传本地Specs仓库中的修改到github仓库</li>
+<li>将在自己fork的Specs上做的修改pull给CocoaPods官方的Specs仓库</li>
+<li>查看审核进度</li>
+<li>查看我们自己创建的Pods依赖库</li>
+</ul>
+<h3 id="将fork的仓库clone到本地"><a href="#将fork的仓库clone到本地" class="headerlink" title="将fork的仓库clone到本地"></a>将fork的仓库clone到本地</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="keyword">clone</span> <span class="title">https</span>://github.com/wangzz/Specs.git</div></pre></td></tr></table></figure>
+<p><strong>注意，大家需要将对应的仓库地址换成自己的。 这个仓库有点大，需要有耐心啊</strong></p>
+<h3 id="将自己的podspec文件添加到本地Specs仓库中"><a href="#将自己的podspec文件添加到本地Specs仓库中" class="headerlink" title="将自己的podspec文件添加到本地Specs仓库中"></a>将自己的podspec文件添加到本地Specs仓库中</h3><p>Specs仓库clone到本地后，会放到一个名为Specs的文件夹中。podspec文件在Specs仓库中的保存原则是： Pods依赖库同名文件夹—&gt;版本号同名文件夹—&gt;podspec文件 照此原则，我需要在Specs文件夹下建立一个名为WZMarqueeView的文件夹，然后进入到WZMarqueeView文件夹下，建立一个名称为1.0.0的文件夹，最后进入到1.0.0这个文件夹下，并且将之前创建好的WZMarqueeView.podspec文件拷贝进来。 不难理解，如果以后有对WZMarqueeView类的升级，就在WZMarqueeView文件夹下建立对应版本名称的文件夹，用于保存对应版本的podspec文件即可。 这些操作完成后，目录层次</p>
+<p>结构如下所示</p>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200450396.jpg" alt="20140304200450396.jpg" title="">
+<h3 id="上传本地Specs仓库中的修改到github仓库"><a href="#上传本地Specs仓库中的修改到github仓库" class="headerlink" title="上传本地Specs仓库中的修改到github仓库"></a>上传本地Specs仓库中的修改到github仓库</h3><p>执行以下命令：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git <span class="keyword">add</span><span class="bash"> -A &amp;&amp; git commit -m <span class="string">"Add WZMarqueeView podspec file"</span></span></div><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
+<p><strong>成功以后就能在github上自己fork的Specs仓库中看到刚上传的文件了。</strong></p>
+<h3 id="将在自己fork的Specs上做的修改pull给CocoaPods官方的Specs仓库"><a href="#将在自己fork的Specs上做的修改pull给CocoaPods官方的Specs仓库" class="headerlink" title="将在自己fork的Specs上做的修改pull给CocoaPods官方的Specs仓库"></a>将在自己fork的Specs上做的修改pull给CocoaPods官方的Specs仓库</h3><ul>
+<li>进入到自己fork的Specs仓库中，会看到屏幕左上角有一个绿色按钮：<img src="/2017/02/01/CocoaPods之制作篇/20140304200450398.jpg" alt="20140304200450398.jpg" title="">
+</li>
+</ul>
+<img src="/2017/02/01/CocoaPods之制作篇/20140304200451400.jpg" alt="20140304200451400.jpg" title="">
+<p>点击图中的绿色Create Pull Request按钮，即可将我们fork的Specs上做的修改pull给CocoaPods官方的Specs仓库。<br>到这一步后，剩下的工作就只有等了，等待CocoaPods的维护人员审核并将我们pull上去的修改合并到官方的Specs仓库中，这个过程通常会有一天左右的等待时间。如果有任何消息，比如审核不通过，或者审核通过了，CocoaPods官方都会发邮件通知的。 等到审核通过的时候，我们就能在官方的Specs仓库中看到自己上传的文件夹了。</p>
+<h3 id="查看审核进度"><a href="#查看审核进度" class="headerlink" title="查看审核进度"></a>查看审核进度</h3><p>当然我们也能查看审核进度，打开这个链接：<a href="https://github.com/CocoaPods/Specs/pulls，这里能看到所有的Specs仓库pull请求，如下图：" target="_blank" rel="external">https://github.com/CocoaPods/Specs/pulls，这里能看到所有的Specs仓库pull请求，如下图：</a><br><img src="/2017/02/01/CocoaPods之制作篇/20140304200451402.jpg" alt="20140304200451402.jpg" title=""></p>
+<p>红圈标识的就是我刚才pull上来的请求，点进去以后就能看到对应的审核进度。</p>
+<h3 id="查看我们自己创建的Pods依赖库"><a href="#查看我们自己创建的Pods依赖库" class="headerlink" title="查看我们自己创建的Pods依赖库"></a>查看我们自己创建的Pods依赖库</h3><p>如果收到了CocoaPods官方发过来的审核通过邮件以后，你可能很着急的想在自己的电脑上执行pod search命令，看看能不能搜索到自己创建的Pods依赖库。不过你肯定会失望的，因为还需要执行一条命令才能在我们的本地电脑上使用search命令搜索到我们的依赖库：<br><br>pod setup <br>在我的CocoaPods系列教程中的第一篇：CocoaPods详解之—-进阶篇中的最后部分介绍过这条命令，它会将所有的Pods依赖库tree跟新到本地。执行完这条命令，再去执行:<br><br>pod search WZMarqueeView</p>
+<p>就能显示出对应的介绍信息了！<br>说了那么多，到这里整个Pods依赖库创建过程才算真正结束！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/Podspec文件介绍/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/Podspec文件介绍/" itemprop="url">
+                  Podspec文件介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T21:55:14+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集成/" itemprop="url" rel="index">
+                    <span itemprop="name">集成</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Podspec或者Podspec.json用于初始化本地第三方库的Spec描述文件所有的spec文件存都存放在目录: <code>~/.cocoapods/repos/</code></strong></p>
+<h3 id="格式描述"><a href="#格式描述" class="headerlink" title="格式描述"></a>格式描述</h3><h4 id="Podspec-Ruby格式"><a href="#Podspec-Ruby格式" class="headerlink" title="Podspec-Ruby格式"></a>Podspec-Ruby格式</h4><p>参考样例如下[xxxxxx.Podspec]:<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">    s.name = <span class="string">'KeychainItemWrapper'</span></div><div class="line">    s.version = <span class="string">'1.0.0'</span></div><div class="line">    s.summary = <span class="string">'utils for keychain operating'</span></div><div class="line">    s.author = &#123; <span class="string">'antonyzhao'</span> =&gt; <span class="string">'antonyzhao@staff.joyme.com'</span> &#125;</div><div class="line">    s.source = &#123; <span class="symbol">:svn</span> =&gt; <span class="string">'http://svn.enjoyf.com/svn/ios/commonlib/KeychainItemWrapper'</span>, <span class="symbol">:tag</span> =&gt; <span class="string">'1.0.0'</span> &#125;</div><div class="line">    s.description = <span class="string">"utils for keychain operating"</span></div><div class="line">    s.platform = <span class="symbol">:ios</span></div><div class="line">    s.source_files = <span class="string">'*&#123;.h,.m&#125;'</span></div><div class="line">    s.frameworks = Security<span class="string">'</span></div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p><strong>注意:</strong></p>
+<ol>
+<li>s.name:该代码的名称，必须填写</li>
+<li>s.version:这个描述文件所对应的版本</li>
+<li>s.summary:该代码的描述信息</li>
+<li>s.author:这份代码的作者</li>
+<li>s.source:该代码的链接地址，参数如下:<br>svn :该代码的版本控制工具<b><br>tag :该代码需要checkout的tag</b></li>
+<li>s.description:该代码的描述信息</li>
+<li>s.platform:该代码所对应的可运行平台</li>
+<li>s.source_files:该代码中所包括的源代码</li>
+<li>s.frameworks:该代码所依赖的其他framework</li>
+</ol>
+<h4 id="Podspec-Json格式"><a href="#Podspec-Json格式" class="headerlink" title="Podspec-Json格式"></a>Podspec-Json格式</h4><p>参考样例如下[xxxxxx.Podspec.json]:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"KeychainItemWrapper"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">  <span class="attr">"summary"</span>: <span class="string">"utils for keychain operating"</span>,</div><div class="line">  <span class="attr">"authors"</span>: &#123;</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"jw007800@yeah.net"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"source"</span>: &#123;</div><div class="line">    <span class="attr">"svn"</span>: <span class="string">"http://svn.............."</span>,</div><div class="line">    <span class="attr">"tag"</span>: <span class="string">"1.0.0"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"requires_arc"</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">"platforms"</span>: &#123;</div><div class="line">    <span class="attr">"ios"</span>: <span class="string">"6.0"</span>,</div><div class="line">    <span class="attr">"osx"</span>: <span class="string">"10.8"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"public_header_files"</span>: <span class="string">"*.h"</span>,</div><div class="line">  <span class="attr">"source_files"</span>: <span class="string">"*&#123;.h,.m&#125;"</span>,</div><div class="line">  <span class="attr">"frameworks"</span>: [</div><div class="line">    <span class="string">"Security"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>注意:</strong></p>
+<ol>
+<li>name: 该代码的名称，必须填写</li>
+<li>version:该描述文件所对应的版本</li>
+<li>summary:该代码所对应的描述信息</li>
+<li>athors:该代码所对应的作者</li>
+<li>source:该代码所对应的版本控制工具及该代码的tag，参数如下:<br>svn:代表该代码的版本控制工具为svn，可以是其他工具:git/cvs<br>tag:代表该代码所对应的tag</li>
+<li>requires_arc:该代码是否需要在arc中运行</li>
+<li>platforms：该代码可运行的平台，参数如下:<br>ios:7.0 : 代表该代码可运行在ios7.0及以上的平台<br>osx:10.8 : 代表该代码可运行在osx 10.8及以上的平台<br></li>
+<li>public_header_files:该代码需要对外提供的公共头文件</li>
+<li>source_files:该代码中所包括的源代码</li>
+<li>frameworks:该代码中所依赖的其他framework</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/Podfile文件介绍/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/Podfile文件介绍/" itemprop="url">
+                  Podfile文件介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T21:54:45+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集成/" itemprop="url" rel="index">
+                    <span itemprop="name">集成</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>简介</strong></p>
+<blockquote>
+<p>在每一个由xcode创建的项目中，都可以加入Podfile文件，之后可以由cocoapods来维护该项目所依赖的第三份代码<br><br>Podfile 文件指定了项目中的target所依赖的第三方库</p>
+</blockquote>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">platform :ios, <span class="string">'6.0'</span></div><div class="line"></div><div class="line">pod <span class="string">'KeychainItemWrapper'</span>, :<span class="function"><span class="params">svn</span> =&gt;</span> <span class="string">'http://svn.enjoyf.com/svn/ios/commonlib/KeychainItemWrapper'</span>, :<span class="function"><span class="params">tag</span> =&gt;</span> <span class="string">'1.0.0'</span></div><div class="line">pod <span class="string">'AFNetWorking'</span>, <span class="string">'~&gt; 4.1.4'</span></div></pre></td></tr></table></figure>
+<p><strong>注意:</strong></p>
+<ol>
+<li>指定编译版本<br>svn :该代码的版本控制工具</li>
+<li>添加依赖库<br>pod ‘KeychainItemWrapper’ 为添加依赖库KeychainItemWrapper<br>:svn =&gt; ‘http….wrapper’ 指定了该代码的版本控制工具及链接地址<br>:tag =&gt; ‘1.0.0’ 指定了需要添加的项目中的代码的tag</li>
+<li>第二种添加的为github中指定版本的库<br>pod ‘AFNetWorking’ 为添加依赖库 AFNetWorking</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/IOS公共库发布形式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/IOS公共库发布形式/" itemprop="url">
+                  IOS公共库发布形式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T21:53:59+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集成/" itemprop="url" rel="index">
+                    <span itemprop="name">集成</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>本章讲解怎么发布和维护一个公共库</p>
+</blockquote>
+<h3 id="版本规则"><a href="#版本规则" class="headerlink" title="版本规则"></a>版本规则</h3><p>&emsp;&emsp;首先在讲怎么发布公共库之前，先说一下对公共库版本的规则，因为公共库是需要不断的维护的，每有改动都需要有一个新的版本。那就问题来了，版本要有规则。</p>
+<p>&emsp;&emsp;之前讲过 <a href="">移动端版本号注意事项</a>。 版本规则为:<code>MainVersion</code>.<code>SmallVersion</code>.<code>BuildVersion</code></p>
+<ul>
+<li>MainVersion:如果遇到较大代码变动，比如结构发生变动，则修改大版本号</li>
+<li>SmallVersion:如果较少量代码变动，比如添加代码、修改代码等，则修改小版本号</li>
+<li>BuildVersion:如果需要补充注释、修改名称等，则修改编译版本号<br>公共库中的代码初始版本为1.0.0</li>
+</ul>
+<p>公共库的目录最好放在SVN一个专门的文件夹下</p>
+<h3 id="公共库依赖工具"><a href="#公共库依赖工具" class="headerlink" title="公共库依赖工具"></a>公共库依赖工具</h3><ul>
+<li>cocoapods</li>
+<li><a href="http://blog.csdn.net/muyu114/article/details/9454197" target="_blank" rel="external">生成doc文档</a></li>
+</ul>
+<h3 id="公共库依赖podspec文件介绍"><a href="#公共库依赖podspec文件介绍" class="headerlink" title="公共库依赖podspec文件介绍"></a>公共库依赖podspec文件介绍</h3><ul>
+<li><a href="#">podspec文件介绍</a></li>
+<li><a href="#">Podfile文件介绍</a></li>
+</ul>
+<h3 id="集成公共库步骤"><a href="#集成公共库步骤" class="headerlink" title="集成公共库步骤"></a>集成公共库步骤</h3><h4 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h4><ol>
+<li>checkout <code>svnscript</code> 脚本</li>
+<li>通过terminal，进入script目录，</li>
+<li>执行shell 命令 ：<code>sh checkenv</code></li>
+</ol>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
+<li>上述操作完成之后，会出现use [podinstall] or [podupdate] to update pod，此时注意</li>
+<li>注意在项目的目录下执行 pod update<br><ul>
+<li>集成cocoapods时，需要执行pod install或者pod update，而此时需要执行podinstall或者podupdate</li>
+<li><code>podinstall</code>: 该操作用于初次建立Podfile文件，引入所依赖的库</li>
+<li><code>podupdate</code>:该操作用于修改Podfile文件，更新所依赖的库</li>
+</ul>
+</li>
+<li>由于appledoc的安装环境与osx版本和xcode版本有关，我在checkenv中注释掉了，有需要的可以自行开启，安装appledoc。</li>
+</ol>
+<p><code>appledoc可以根据在.h文件中添加的注释，自动生成doc文档，方便查看api.</code></p>
+<h3 id="xcode集成cocoapods插件"><a href="#xcode集成cocoapods插件" class="headerlink" title="xcode集成cocoapods插件"></a>xcode集成cocoapods插件</h3><ol>
+<li>可以安装cocoapods插件，通过该插件可以很方便的在xcode中管理Podfile文件</li>
+<li>安装：<a href="http://mdsa.51cto.com/art/201509/492230.htm" target="_blank" rel="external">cocoapods-xcode-plugin</a></li>
+</ol>
+<h3 id="公共库项目开发"><a href="#公共库项目开发" class="headerlink" title="公共库项目开发"></a>公共库项目开发</h3><ol>
+<li>进入需要创建commonlib的目录中，执行podlibcreate NAME,等待执行完毕</li>
+<li>按照提示，打开执行的xcodeproj的文可</li>
+<li>目录结构<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">├── <span class="keyword">tags</span></div><div class="line">└── trunk</div><div class="line">    ├── DEMO.podspec.json        <span class="keyword">p</span><span class="variable">s:</span> 为通过Pod集成时的代码描述文件</div><div class="line">    ├── Example                  <span class="keyword">p</span><span class="variable">s:</span> 测试的project</div><div class="line">    │   ├── DEMO                 <span class="keyword">p</span><span class="variable">s:</span></div><div class="line">    │   ├── DEMO.xcodeproj       <span class="keyword">p</span><span class="variable">s:</span></div><div class="line">    │   ├── Podfile              <span class="keyword">p</span><span class="variable">s:</span></div><div class="line">    │   └── Tests                <span class="keyword">p</span><span class="variable">s:</span></div><div class="line">    ├── LICENSE                  <span class="keyword">p</span><span class="variable">s:</span> 声明文件</div><div class="line">    ├── Pod                      <span class="keyword">p</span><span class="variable">s:</span></div><div class="line">    │   ├── Assets               <span class="keyword">p</span><span class="variable">s:</span> 为项目中需要引入的图片、等资源</div><div class="line">    │   └── Classes              <span class="keyword">p</span><span class="variable">s:</span> 为公共库代码(通过pod来引入的代码，非项目测试代码)</div><div class="line">    └── README.md                <span class="keyword">p</span><span class="variable">s:</span> 为公共库项目简介</div><div class="line"></div><div class="line"><span class="number">9</span> directories, <span class="number">4</span> <span class="keyword">files</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果想修改 Example 或者 目录结构 需要 在脚本中更换模板工程</p>
+<h3 id="公共库版本更新维护"><a href="#公共库版本更新维护" class="headerlink" title="公共库版本更新维护"></a>公共库版本更新维护</h3><p><strong>流程</strong></p>
+<ol>
+<li>修改NAME.podspec.json中的版本号<br>version:指定的版本号<br>tag:同version的版本号</li>
+<li>修改trunk代码</li>
+<li>提交trunk代码</li>
+<li>add tag<code>注意规范</code></li>
+</ol>
+<p><strong>注意</strong></p>
+<ol>
+<li>如果在项目开发过程中，需要扩展公共库内容，则可以采取以下流程</li>
+<li>找到项目中Pods内需要修改的公共库代码，修改内容</li>
+<li>跟随项目进行调试</li>
+<li>调试没有问题，整理Pods中修改过的公共库代码</li>
+<li>将Pods文件夹内修改过的公共库代码拷贝至该公共库中trunk目录，替换源文件</li>
+<li>提交trunk代码</li>
+<li>打tag</li>
+<li>修改项目中Podfile文件，更新公共库代码</li>
+</ol>
+<h3 id="疑难杂症"><a href="#疑难杂症" class="headerlink" title="疑难杂症"></a>疑难杂症</h3><ul>
+<li>在osx10.11 beta和xcode7beta中，如果执行podinstall或potupdate出现错误，建议更新pod至最新版，执行<code>sudo gem update</code></li>
+<li>OS X10.11环境下执行sudo gem update 出现错误 “bad response Not Found 404 (<a href="http://ruby.taobao.org/latest_spe）”时，执行gem" target="_blank" rel="external">http://ruby.taobao.org/latest_spe）”时，执行gem</a> sources -a <a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a> ，再更新就好了。来源看<a href="http://blog.csdn.net/w_x_p/article/details/49151477/" target="_blank" rel="external">这里</a>。</li>
+<li>有时候add tag 后 pod 完 发现没有发生变化，这个貌似是svn的一个bug（缓冲问题）。没找到好的办法，重新add个tag吧。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/cocoapods/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/cocoapods/" itemprop="url">
+                  cocoapods
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T21:50:51+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集成/" itemprop="url" rel="index">
+                    <span itemprop="name">集成</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="CocoaPods是什么？"><a href="#CocoaPods是什么？" class="headerlink" title="CocoaPods是什么？"></a>CocoaPods是什么？</h3><p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库，“子子孙孙无穷尽也”，这也许是比较特殊的情况。总之小编的意思就是，手动一个个去下载所需类库十分麻烦。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。如果能有什么工具能解决这些恼人的问题，那将“善莫大焉”。所以，你需要 CocoaPods。</p>
+<p>CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了</p>
+<p>对于CocoaPods还不太熟悉的，建议参考一下唐巧的博客或者直接到CocoaPods的官网看看：<a href="https://cocoapods.org/" target="_blank" rel="external">https://cocoapods.org/</a></p>
+<h3 id="如何下载和安装CocoaPods？"><a href="#如何下载和安装CocoaPods？" class="headerlink" title="如何下载和安装CocoaPods？"></a>如何下载和安装CocoaPods？</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function installPod() &#123;</div><div class="line">   echo <span class="string">'--install--cocoapods--'</span></div><div class="line">   sudo $&#123;GEM&#125; sources --remove <span class="symbol">https:</span>/<span class="regexp">/rubygems.org/</span></div><div class="line">   sudo $&#123;GEM&#125; sources -a <span class="symbol">http:</span>/<span class="regexp">/ruby.taobao.org/</span></div><div class="line">   echo <span class="string">'---this will also need a long time to finish this task---'</span></div><div class="line">   sudo $&#123;GEM&#125; install -VN xcodeproj</div><div class="line">   sudo $&#123;GEM&#125; install -VN cocoapods</div><div class="line">   echo <span class="string">'OK, pod has already installed on the computer'</span></div><div class="line">   echo <span class="string">'pod =&gt; version:'</span><span class="string">`$&#123;POD&#125; --version`</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CocoaPods"><a href="#使用CocoaPods" class="headerlink" title="使用CocoaPods"></a>使用CocoaPods</h3><h4 id="创建Podfile"><a href="#创建Podfile" class="headerlink" title="创建Podfile"></a>创建Podfile</h4><a href="/2017/02/01/Podfile文件介绍/" title="Podfile文件介绍">Podfile文件介绍</a>
+<h4 id="执行导入命令"><a href="#执行导入命令" class="headerlink" title="执行导入命令"></a>执行导入命令</h4><p><code>pod install</code></p>
+<h3 id="pod-SVN-中的代码"><a href="#pod-SVN-中的代码" class="headerlink" title="pod SVN 中的代码"></a>pod SVN 中的代码</h3><p>在实际中大多数公司是采用svn作代码管理的，这样我们希望做一些公共库方便各个不同的项目之间快速集成、维护。相关公共库参考 <a href="/2017/02/01/IOS公共库发布形式/" title="IOS公共库发布形式">IOS公共库发布形式</a></p>
+<h4 id="安装-cocoapods-repo-svn-插件"><a href="#安装-cocoapods-repo-svn-插件" class="headerlink" title="安装 cocoapods-repo-svn 插件"></a>安装 cocoapods-repo-svn 插件</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function installPodSvn() &#123;</div><div class="line">    echo <span class="string">'--install--pod--svn--plugin--'</span></div><div class="line">    echo <span class="string">'--need---to---enter--your---root--password--'</span></div><div class="line">    repoSvn=<span class="string">`pod | grep repo-svn`</span></div><div class="line">    <span class="keyword">if</span> [[ -z $&#123;repoSvn&#125; ]]; <span class="keyword">then</span></div><div class="line">        sudo $&#123;GEM&#125; install -VN cocoapods-repo-svn</div><div class="line">    <span class="keyword">else</span></div><div class="line">        echo <span class="string">'--already--install--[cocoapods-repo-svn]--'</span></div><div class="line">    fi</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>svn中代码目录结构如下：</p>
+<img src="/2017/02/01/cocoapods/svn.png" alt="svn.png" title="">
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/NSURLProtocol介绍/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/NSURLProtocol介绍/" itemprop="url">
+                  NSURLProtocol介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T19:20:16+08:00">
                 2017-02-01
               </time>
             
@@ -377,1475 +1278,46 @@
       
         
           
-            <p>IOS设置版本号</p>
-<p>原因<br>友盟上报版本号时只会取CFBundleVersion，即使已经设置了版本号CFShortVersionString，友盟也会取该版本号，这样会于之前定义的版本号发生冲突。<br>版本控制工具<br>通过agvtool来设置iOS端App版本号，参考：<br><a href="https://developer.apple.com/library/ios/qa/qa1827/_index.html" target="_blank" rel="external">https://developer.apple.com/library/ios/qa/qa1827/_index.html</a></p>
-<p>在BuildSetting中选择Versioning，设置Versioning System为Apple Generic<br>在命令行中，进入项目目录，执行<br>agvtool next-version<br>即可叠加当前版本号。</p>
-<p>设置新的版本号，执行<br>agvtool new-version #NEW_VERSION#<br>即可为当前项目设置新的版本号</p>
-<p>自定义DailyBuild版本<br>在Info.plist中添加自定义项：DailyBuildVersion，数据类型为String，数据为${CURRENT_PROJECT_VERSION}<br>设置BundleVersion中得数据与Bundle versions string, short的数据保持一致。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/31/ios自动打包分发/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/31/ios自动打包分发/" itemprop="url">
-                  ios自动打包分发
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-31T15:18:27+08:00">
-                2017-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/常用工具/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/30/常用工具/" itemprop="url">
-                  常用工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T22:05:04+08:00">
-                2017-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index">
-                    <span itemprop="name">tools</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
             <blockquote>
-<p>工欲善其事必先利其器</p>
+<p>枯藤老树昏鸦小桥流水人家~~ 好湿 ``好湿</p>
 </blockquote>
-<h3 id="命令行工具-Oh-My-Zsh"><a href="#命令行工具-Oh-My-Zsh" class="headerlink" title="命令行工具 Oh-My-Zsh"></a>命令行工具 Oh-My-Zsh</h3><img src="/2017/01/30/常用工具/azsh.png" alt="azsh.png" title="">
-<h4 id="他也是Shell"><a href="#他也是Shell" class="headerlink" title="他也是Shell"></a>他也是Shell</h4><p><strong>什么是Oh-My-Zsh?</strong></p>
-<p>Oh My Zsh是一款社区驱动的命令行工具，正如它的主页上说的，Oh My Zsh 是一种生活方式。它基于zsh命令行，提供了主题配置，插件机制，已经内置的便捷操作。给我们一种全新的方式使用命令行。<br>Oh My Zsh这个名字听起来就很有意思，它是基于zsh命令行的一个扩展工具集，提供了丰富的扩展功能。<br>Oh My Zsh只是一个对zsh命令行环境的配置包装框架，但它不提供命令行窗口，更不是一个独立的APP。<br>更详细介绍可到官网了解，Oh My Zsh官网：<a href="http://ohmyz.sh" target="_blank" rel="external">http://ohmyz.sh</a></p>
-<p>大多数的Linux用户偏爱<code>Bash</code>，因为发行版通常默认的就是它。<br><code>Bash</code>确实是不错的Shell，但仍有用很多不尽人意的地方，如自动补全的功能不够强大，定位较长路径不够方便，命令历史管理不够完善等。</p>
-<p>Linux/Unix提供了很多种Shell，为毛要这么多Shell？<br><br>难道用来炒着吃么？那我问你，你同类型的衣服怎么有那么多件？花色，质地还不一样。写程序比买衣服复杂多了，而且程序员往往负责把复杂的事情搞简单，简单的事情搞复杂。牛程序员看到不爽的Shell，就会自己重新写一套，慢慢形成了一些标准，常用的Shell有这么几种，sh、bash、csh等，想知道你的系统有几种shell，可以通过以下命令查看：<code>cat /etc/shells</code><br><img src="/2017/01/30/常用工具/1.png" alt="1.png" title=""><br>如上图显示 <strong>6种</strong></p>
-<p>mac 预装了zsh ,但是很少有人直接切换过来使用此shell ,因为 zsh 的默认配置及其复杂繁琐,让人望而却步,直到有了oh-my-zsh这个开源项目,让zsh配置降到0门槛.而且它完全兼容 bash .</p>
-<h4 id="Zsh具有以下主要功能"><a href="#Zsh具有以下主要功能" class="headerlink" title="Zsh具有以下主要功能"></a>Zsh具有以下主要功能</h4><p>开箱即用、可编程的命令行补全功能可以帮助用户输入各种参数以及选项</p>
-<p>在用户启动的所有shell中共享命令历史</p>
-<p>通过扩展的文件通配符，可以不利用外部命令达到find命令一般展开文件名</p>
-<p>改进的变量与数组处理</p>
-<p>在缓冲区中编辑多行命令</p>
-<p>多种兼容模式，例如使用/bin/sh运行时可以伪装成Bourne shell</p>
-<p>可以定制呈现形式的提示符；包括在屏幕右端显示信息，并在键入长命令时自动隐藏</p>
-<p>可加载的模块，提供其他各种支持：完整的TCP与Unix域套接字控制，FTP客户端与扩充过的数学函数</p>
-<p>各种补全、切换，智能调转j + 目录（需要安装autojump）<a href="/2017/01/30/iTerm/" title="iTerm">iTerm</a>中有介绍</p>
-<p>完全可定制化</p>
-<h4 id="安装Oh-My-Zsh"><a href="#安装Oh-My-Zsh" class="headerlink" title="安装Oh My Zsh"></a>安装Oh My Zsh</h4><p>Oh My Zsh 的安装方式非常简单，可以通过curl或wget的方式，用一条命令即可安装。</p>
-<p>curl 方式</p>
-<pre>$ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</pre>
-wget 方式
-<pre>$ sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"</pre>
-
-<p>OK 到这里完成安装！<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Cloning Oh My Zsh...</div><div class="line">Cloning into '/root/.oh-my-zsh'...</div><div class="line">remote: Counting objects: 712, done.</div><div class="line">remote: Compressing objects: 100% (584/584), done.</div><div class="line">remote: Total 712 (delta 15), reused 522 (delta 4), pack-reused 0</div><div class="line">Receiving objects: 100% (712/712), 443.58 KiB | 27.00 KiB/s, done.</div><div class="line">Resolving deltas: 100% (15/15), done.</div><div class="line">Checking connectivity... done.</div><div class="line">Looking for an existing zsh config...</div><div class="line">Using the Oh My Zsh template file and adding it to ~/.zshrc</div><div class="line">Copying your current PATH and adding it to the end of ~/.zshrc for you.</div><div class="line">Time to change your default shell to zsh!</div><div class="line">        __                                     __</div><div class="line"> ____  / /_     ____ ___  __  __   ____  _____/ /_</div><div class="line">/ __ \/ __ \   / __ `__ \/ / / /  /_  / / ___/ __ \</div><div class="line">/ /_/ / / / /  / / / / / / /_/ /    / /_(__  ) / / /</div><div class="line">\____/_/ /_/  /_/ /_/ /_/\__, /    /___/____/_/ /_/</div><div class="line">                       /____/                       ....is now installed!</div><div class="line"></div><div class="line">Please look over the ~/.zshrc file to select plugins, themes, and options.</div><div class="line">p.s. Follow us at https://twitter.com/ohmyzsh.</div><div class="line">p.p.s. Get stickers and t-shirts at http://shop.planetargon.com.</div></pre></td></tr></table></figure></p>
-<h4 id="Oh-My-Zsh目录结构"><a href="#Oh-My-Zsh目录结构" class="headerlink" title="Oh My Zsh目录结构"></a>Oh My Zsh目录结构</h4><img src="/2017/01/30/常用工具/2.png" alt="2.png" title="">
-<p><strong>lib</strong> 提供了核心功能的脚本库</p>
-<p><strong>tools</strong> 提供安装、升级等功能的快捷工具</p>
-<p><strong>plugins</strong> 自带插件的存在放位置</p>
-<p><strong>templates</strong> 自带模板的存在放位置</p>
-<p><strong>themes</strong>  自带主题文件的存在放位置</p>
-<p><strong>custom</strong> 个性化配置目录，自安装的插件和主题可放这里</p>
-<h4 id="设置主题"><a href="#设置主题" class="headerlink" title="设置主题"></a>设置主题</h4><p>安装完毕后，我们就可以使用了，咱们先来简单配置一下。<br>Oh My Zsh 提供了很多主题风格，我们可以根据自己的喜好，设置主题风格，主题的配置在 ~/.zshrc 文件中可以看到，用一个自己熟悉的编辑器打开这个文件<br><code>vim  ~/.zshrc</code> cmd + f 找到 ZSH——THEME 这一项，默认 默认使用的主题叫做<code>robbyrussel</code></p>
-<p>效果<br><img src="https://w7.sanwen8.cn/mmbiz/8ZFzrRjqato5dJuN6cPJ7ykLpL7Hb1icudEGaJdxWlTo5Lp3Ldic8Dm4ky01RibuLSLuH062MDTAlTrPe8SjHhIYQ/0?wx_fmt=jpeg" alt=""></p>
-<p>Oh My Zsh默认自带了一些默认主题，存放在~/.oh-my-zsh/themes目录中。我们可以查看这些主题<br>$ ls ~/.oh-my-zsh/themes</p>
-<pre>
-3den.zsh-theme                essembeh.zsh-theme            junkfood.zsh-theme            rgm.zsh-theme
-Soliah.zsh-theme              evan.zsh-theme                kafeitu.zsh-theme             risto.zsh-theme
-adben.zsh-theme               example.zsh-theme             kardan.zsh-theme              rixius.zsh-theme
-af-magic.zsh-theme            fino-time.zsh-theme           kennethreitz.zsh-theme        rkj-repos.zsh-theme
-afowler.zsh-theme             fino.zsh-theme                kiwi.zsh-theme                rkj.zsh-theme
-agnoster.zsh-theme            fishy.zsh-theme               kolo.zsh-theme                robbyrussell.zsh-theme
-alanpeabody.zsh-theme         flazz.zsh-theme               kphoen.zsh-theme              sammy.zsh-theme
-amuse.zsh-theme               fletcherm.zsh-theme           lambda.zsh-theme              simonoff.zsh-theme
-apple.zsh-theme               fox.zsh-theme                 linuxonly.zsh-theme           simple.zsh-theme
-arrow.zsh-theme               frisk.zsh-theme               lukerandall.zsh-theme         skaro.zsh-theme
-....
-</pre>
-
-<p> echo $ZSH_THEME 可以输出当前使用的是哪一主题</p>
-<h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p>Oh My Zsh 默认自带了一些默认主题，存放在~/.oh-my-zsh/plugins目录中。我们可以查看这些插件</p>
-<pre>
-adb                      git-flow                 pylint
-ant                      git-flow-avh             python
-apache2-macports         git-hubflow              rails
-arcanist                 git-prompt               rake
-archlinux                git-remote-branch        rake-fast
-asdf                     gitfast                  rand-quote
-autoenv                  github                   rbenv
-autojump                 gitignore                rbfu
-autopep8                 glassfish                react-native
-aws                      globalias                rebar
-battery                  gnu-utils                redis-cli
-bbedit                   go                       repo
-........
-</pre>
-
-<p>Oh My Zsh默认是只启用git插件</p>
-<p>plugins=(git)</p>
-<p>如需启用更多插件，可加入需启用插件的名称。如下</p>
-<p>plugins=(git wd web-search history history-substring-search)</p>
-<h4 id="取代bash，设为默认shell"><a href="#取代bash，设为默认shell" class="headerlink" title="取代bash，设为默认shell"></a>取代bash，设为默认shell</h4><p>chsh -s /bin/zsh   <strong>如果要切换回去bash：   </strong>chsh -s /bin/bash</p>
-<h4 id="更新oh-my-zsh"><a href="#更新oh-my-zsh" class="headerlink" title="更新oh my zsh"></a>更新oh my zsh</h4><p>直接在终端中，运行 <code>upgrade_oh_my_zsh</code></p>
-<h4 id="卸载oh-my-zsh"><a href="#卸载oh-my-zsh" class="headerlink" title="卸载oh my zsh"></a>卸载oh my zsh</h4><p>直接在终端中，运行<code>uninstall_oh_my_zsh</code>既可以卸载。</p>
-<h3 id="命令行工具-HomeBrew"><a href="#命令行工具-HomeBrew" class="headerlink" title="命令行工具 HomeBrew"></a>命令行工具 HomeBrew</h3><p><a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">Homebrew官网</a></p>
-<h4 id="什么是HomeBrew"><a href="#什么是HomeBrew" class="headerlink" title="什么是HomeBrew"></a>什么是HomeBrew</h4><p>macOS 不可或缺的套件管理器,又提示缺少套件啦？别担心，Homebrew 随时守候。</p>
-<h4 id="Homebrew安装"><a href="#Homebrew安装" class="headerlink" title="Homebrew安装"></a>Homebrew安装</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></div></pre></td></tr></table></figure>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a><font color="#8FBC8F"><strong><em>使用场景</em></strong></font><br></h4><ol>
+<li><a href="#重定向网络请求">重定向网络请求</a></li>
+<li><a href="#忽略网络请求，使用本地缓存">忽略网络请求，使用本地缓存</a></li>
+<li><a href="#creat ProjectTemplate">自定义网络请求的返回结果</a></li>
+<li><a href="#creat LibTemplate">一些全局的网络请求设置</a></li>
+</ol>
 <hr>
-<h4 id="Homebrew使用"><a href="#Homebrew使用" class="headerlink" title="Homebrew使用"></a>Homebrew使用</h4><p>搜索软件：brew search 软件名，如brew search autojump</p>
-<p>安装软件：brew install 软件名，如brew install autojump</p>
-<p>卸载软件：brew remove 软件名，如brew remove autojump</p>
-<hr>
-<h3 id="xctool-自动打包"><a href="#xctool-自动打包" class="headerlink" title="xctool 自动打包"></a>xctool 自动打包</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>xctool是facebook开源的一个命令行工具，用来替代苹果的xcodebuild工具</p>
-<p>功能如下：</p>
-<p>像xcode一样跑测试用例</p>
-<p>结构化输出编译测试结果</p>
-<p>彩色且方便阅读的编译内容输出</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/72f2af1bgw1e4nxuk9fvqg20g80bi4qr.gif" alt=""></p>
-<p>之后我们专门开一篇专门讲  <a href="/2017/01/31/ios自动打包分发/" title="ios自动打包分发">ios自动打包分发</a></p>
-<h4 id="如何安装xctool"><a href="#如何安装xctool" class="headerlink" title="如何安装xctool"></a>如何安装xctool</h4><p>最简单的办法是通过homebrew安装 xctool</p>
-<p><code>brew install xctool</code></p>
-<h4 id="如何使用xctool"><a href="#如何使用xctool" class="headerlink" title="如何使用xctool"></a>如何使用xctool</h4><p><strong>打包</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  archive</div><div class="line">```  </div><div class="line">**build**</div><div class="line">```c</div><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  build</div><div class="line">```  </div><div class="line">**测试**</div><div class="line">```c</div><div class="line">  path/to/xctool.sh \</div><div class="line">  -workspace YourWorkspace.xcworkspace \</div><div class="line">  -scheme YourScheme \</div><div class="line">  test</div></pre></td></tr></table></figure></p>
-<h3 id="mitmproxy-抓包"><a href="#mitmproxy-抓包" class="headerlink" title="mitmproxy 抓包"></a>mitmproxy 抓包</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>mitmproxy是一款支持SSL的HTTP代理，它可以用于调试HTTP通信，发起中间人攻击等。mitmproxy提供了一个控制台接口用于动态拦 截和编辑HTTP数据包。mitmdump是mitmproxy的命令行版本，功能与其相同，mitmproxy可在终端下运行。mitmproxy使用Python开发，是辅助web开发&amp;测试，移动端调试，渗透测试的工具。</p>
-<h4 id="工作原理介绍（以HTTPS为例）"><a href="#工作原理介绍（以HTTPS为例）" class="headerlink" title="工作原理介绍（以HTTPS为例）"></a>工作原理介绍（以HTTPS为例）</h4><p>1.客户端发起一个到mitmproxy的连接，并且发出HTTP CONNECT请求，</p>
-<p>2.mitmproxy作出响应(200)，模拟已经建立了CONNECT通信管道，</p>
-<p>3.客户端确信它正在和远端服务器会话，然后启动SSL连接。在SSL连接中指明了它正在连接的主机名(SNI)，</p>
-<p>4.mitmproxy连接服务器，然后使用客户端发出的SNI指示的主机名建立SSL连接，</p>
-<p>5.服务器以匹配的SSL证书作出响应，这个SSL证书里包含生成的拦截证书所必须的通用名(CN)和服务器备用名(SAN)，</p>
-<p>6.mitmproxy生成拦截证书，然后继续进行与第３步暂停的客户端SSL握手，</p>
-<p>7.客户端通过已经建立的SSL连接发送请求，</p>
-<p>8.mitmproxy通过第４步建立的SSL连接传递这个请求给服务器。</p>
-<p><img src="http://static.open-open.com/news/uploadImg/20150831/20150831162141_613.jpg" alt=""></p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><code>brew insatll readline Python</code></p>
-<p><code>brew install mitmproxy</code>                            </p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>手机和电脑连接同一个wifi，然后设置代理。进入WLAN，找到当前连接的wifi，长按，弹出的框中选择“修改网络”，进入后，选择“显示高级选项”，代理选择为“手动”，代理服务器主机名设置为mac端的ip地址，端口号是跟刚刚设置的2386，设好后保存(端口默认8080)</p>
-<p><strong>启动</strong>    mitmproxy  or  mitmproxy -p 2386</p>
-<p>界面如下：</p>
-<p><img src="http://static.open-open.com/news/uploadImg/20150831/20150831162141_867.jpg" alt=""></p>
-<h4 id="mitmproxy基本操作"><a href="#mitmproxy基本操作" class="headerlink" title="mitmproxy基本操作"></a>mitmproxy基本操作</h4><p>详细操作在这里可以找到：<a href="http://mitmproxy.org/doc/mitmproxy.html" target="_blank" rel="external">http://mitmproxy.org/doc/mitmproxy.html</a> 。我在这里只列出一些经常用到的命令。</p>
-<p>其实命令基本和vi一致。</p>
-<pre>
-C 清空控制台
-tab 请求/响应切换
-q 返回上一个界面
-m 在响应结果中，输入m可以选择body的呈现方式，比如json，xml等
-e 编辑请求、响应
-a 发送编辑后的请求、响应
-</pre>
-
-<p>一般抓包我还是喜欢用<strong>Charles</strong>，省去了终端里一大堆命令</p>
-<p><a href="http://blog.devtang.com/2015/11/14/charles-introduction/" target="_blank" rel="external">Charles使用教程</a></p>
-<h3 id="mobileprovision-read"><a href="#mobileprovision-read" class="headerlink" title="mobileprovision-read"></a>mobileprovision-read</h3><h4 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h4><p>这个命令工具就是读取mobileprovision文件内容。</p>
-<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>curl <a href="https://raw.githubusercontent.com/0xc010d/mobileprovision-read/master/main.m" target="_blank" rel="external">https://raw.githubusercontent.com/0xc010d/mobileprovision-read/master/main.m</a> | clang -framework Foundation -framework Security -o /usr/local/bin/mobileprovision-read -x objective-c -</p>
-<p>这条命令的作用是下载mobileprovision-read的源码，然后编译，最后把生成的二进制文件mobileprovision-read放入到/usr/local/bin/路径下</p>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p><code>mobileprovision-read -f xxx.mobileprovision</code></p>
-<h4 id="钥匙串中证书-cer文件查看"><a href="#钥匙串中证书-cer文件查看" class="headerlink" title="钥匙串中证书.cer文件查看"></a>钥匙串中证书.cer文件查看</h4><p>钥匙串访问（keychain access.app）中断各种证书，如何查看他们的公钥和私钥信息呢，比如如下证书中的公私钥信息呢<br><img src="http://images2015.cnblogs.com/blog/776445/201611/776445-20161125172240815-1527913.png" alt=""><br>需要右键将其导出成.p12文件，之后将.p12文件转成.pem文件，转成.pem的方法使用下面的命令<br>openssl pkcs12 -in xxx.p12 -out xxx.pem -nodes<br>之后用记事本打开xxx.pem文件，就能读到公钥私钥了</p>
-<h3 id="PlistBuddy-操作plist"><a href="#PlistBuddy-操作plist" class="headerlink" title="PlistBuddy 操作plist"></a>PlistBuddy 操作plist</h3><p>操作plist文件，参考 <a href="http://blog.csdn.net/a351945755/article/details/46561249" target="_blank" rel="external">http://blog.csdn.net/a351945755/article/details/46561249</a></p>
-<h3 id="xcrun-打包"><a href="#xcrun-打包" class="headerlink" title="xcrun 打包"></a>xcrun 打包</h3><h4 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h4><p>XCode 默认编译出来的是appName.app 包，而iphone，ipad的安装文件是ipa文件。<br>将.app包打包成ipa最简单的方式是将appName.app 拖放到itunes中，然后在itunes的相关目录中找到appName.ipa，但这样<strong>测试</strong>的时候没生成一个版本都有重新做一遍。<br>使用xcrun命令可以帮我们自动完成打包工作，可以方便的测试，并且可以指定签名，生成不同的版本。<br>当然对于提供给越狱用户的应用也很有意义。</p>
-<h4 id="xrun的使用方法如下："><a href="#xrun的使用方法如下：" class="headerlink" title="xrun的使用方法如下："></a>xrun的使用方法如下：</h4><pre>
-/usr/bin/xcrun -sdk iphoneos PackageApplication -v "${RELEASE_BUILDDIR}/${APPLICATION_NAME}.app" -o "${BUILD_HISTORY_DIR}/${APPLICATION_NAME}.ipa" --sign "${DEVELOPER_NAME}" --embed "${PROVISONING_PROFILE}”
-</pre>
-
-<p>当然你可以把上面的命令添加到XCode build Phase中，项目编译完成自动打包。</p>
-<h4 id="xcodebuild和xcrun组合使用"><a href="#xcodebuild和xcrun组合使用" class="headerlink" title="xcodebuild和xcrun组合使用"></a>xcodebuild和xcrun组合使用</h4><p>通常打包采用xcodebuild和xcrun两个命令，xcodebuild负责编译，xcrun负责将app打成ipa。</p>
-<p><strong>常见步骤如下：</strong></p>
-<p>1、清理工程<br><code>/usr/bin/xcodebuild -target targetName clean</code></p>
-<p>2、编译工程<br><code>/usr/bin/xcodebuild -target targetName</code><br>3、打包</p>
-<p><code>/usr/bin/xcrun -sdk iphoneos PackageApplication -v path/To/xxx.app -o xxx.ipa</code><br> 如果是含签名的包，上面两个命令需要增加一些参数。</p>
-<p><code>xcodebuild -target targetName CODE_SIGN_IDENTITY=&quot;iPhone Distribution:XXXXXX&quot;</code></p>
-<p><code>xcrun -sdk iphoneos PackageApplication -v 源app路径 -o 输出的ipa路径 --sign &quot;iPhone Distribution:XXXXXX&quot;</code></p>
-<p>自动打包步骤：</p>
-<p>1、先用xocde手动编译好一个App，假设为MyApp.app</p>
-<p>2、导入证书文件到MAC的钥匙链</p>
-<p>//创建钥匙链</p>
-<p><code>security create-keychain -p myapp myapp.keychain</code></p>
-<p>//解锁，否则回弹框等待输入密码</p>
-<p>security unlock-keychain -p myapp myapp.keychain</p>
-<p>//导入证书</p>
-<p><code>security import /opt/myapp.p12 -k myapp.keychain -P mypassword -T /usr/bin/codesign</code></p>
-<p>3、以MyApp.app为模板，copy一个备份，然后进行各种资源的替换，比如替换了应用的图片文件等</p>
-<p>4、替换对应的*.mobileprovision文件到MyApp.app目录</p>
-<p>5、删除MyApp.app下的签名信息_CodeSignature</p>
-<p>6、修改info.plist Bundle indentifier和*.mobileprovision一致</p>
-<p>7、重签名codesign</p>
-<pre>
-/usr/bin/codesign --force --sign 9c8b212f6a2c2382847b104e387a01b246d4ce42 --resource-rules=MyApp.app/ResourceRules.plist --entitlements MyApp.xcent Mkey3G.app
-</pre>
-
-<p>9、生成ipa包</p>
-<pre>
-/usr/bin/xcrun -sdk iphoneos  PackageApplication -v MyApp.app -o MyApp.ipa  --sign  9c8b212f6a2c2382847b104e387a01b246d4ce42 --embed MyApp.app/embed.mobileprovision
-</pre>
-
-<p>10、删除钥匙链</p>
-<p><code>security delete-keychain myapp.keychain</code></p>
-<p><strong>带xcodebuild编译的打包步骤如下：</strong></p>
-<p>导入钥匙链</p>
-<p>对工程clean</p>
-<p>修改info信息</p>
-<p>修改project信息</p>
-<p>xcodebuild</p>
-<p>替换各种资源文件</p>
-<p>修改xcent</p>
-<p>重新签名codesign</p>
-<p>xcrun打ipa</p>
-<p>删除钥匙链</p>
-<p>在  <strong><a href="/2017/01/31/ios自动打包分发/" title="ios自动打包分发">ios自动打包分发</a></strong> 中我们会用到Shell脚步自动打包</p>
-<h3 id="agvtool-版本号"><a href="#agvtool-版本号" class="headerlink" title="agvtool 版本号"></a>agvtool 版本号</h3><h4 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h4><p>在实际开发中，经常会遇到批量版本号更新的问题，一般情况下都是手动修改，但是笔者最近在看官方文档的时候发现了苹果提供的自动化工具，特此分享。</p>
-<p>版本号和编译号分别是代表了正式发布版本和内部版本， agvtool 是一个自动增加版本号的命令行工具。</p>
-<p>注意：版本号是给用户看的，用于标明当前的发行版本，并且被存储在 App 的 Info.plist 文件的 CFBundleShortVersionString (Bundle versions string, short) 中。编译号是内部使用的，用于标明未发行或者已内部发行的应用程序，并且它被存储在 Info.plist 文件的 CFBundleVersion (Bundle version) 中。</p>
-<p>注意：如果应用程序包含了多个目标（target）， agvtool 工具将会把所有目标都设置为同一个版本号和编译号。</p>
-<h4 id="Xcode设置"><a href="#Xcode设置" class="headerlink" title="Xcode设置"></a>Xcode设置</h4><p><strong>启用 agvtool</strong></p>
-<p>选择 <code>Build Settings</code> 更新下列所有编译选项。</p>
-<p>1 设置 <code>Current Project Version</code> 为选定的值</p>
-<p>Xcode 工程文件 <code>project.pbxproj</code> 包含了 <code>CURRENT_PROJECT_VERSION</code> (Current Project Version) 编译设定，这个编译设定指定了当前工程的版本。 <code>agvtool</code> 会搜索此编译选项。如果这个值存在就运行，否则不运行，这个值用来更新编译号。</p>
-<p><strong><em>注意：</em></strong> <code>Current Project Version</code> 的值必须是整数或者浮点数，新工程最好设置为1。</p>
-<p>2 设置 <code>Versioning System</code> 为 <code>Apple Generic</code></p>
-<p>默认情况下苹果不使用任何版本系统，设置为 Apple Generic 确保 Xcode 包含全部的 agvtool 生成的版本信息。</p>
-<p><strong>设置版本和编译号</strong></p>
-<p>agvtool 从 Info.plist 文件搜索版本和编译号。如果存在就更新，不存在就不执行。确保 CFBundleVersion (Bundle version) 和 CFBundleShortVersionString (Bundle versions string, short) 存在。</p>
-<p><strong>命令行</strong></p>
-<p>退出 Xcode，在终端下进入到包含 .xcodeproj 工程文件的目录， .xcodeproj 文件包含了 project.pbxproj 文件。或者打开包含内容用txt打开。</p>
-<h4 id="更新版本号"><a href="#更新版本号" class="headerlink" title="更新版本号"></a>更新版本号</h4><p>使用下列命令更新版本号：</p>
-<p><code>agvtool new-marketing-version &lt;your_specific_version&gt;</code></p>
-<p>例如：</p>
-<pre>
-$ xcrun agvtool new-marketing-version 2.0
-Setting CFBundleShortVersionString of project MyProject to:
-    2.0.
-
-Updating CFBundleShortVersionString in Info.plist(s)...
-
-Updated CFBundleShortVersionString in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2.0
-</pre>
-
-<h4 id="更新编译号"><a href="#更新编译号" class="headerlink" title="更新编译号"></a>更新编译号</h4><p>使用下列命令自动更新编译号：</p>
-<p><code>agvtool next-version -all</code></p>
-<p>例如：</p>
-<pre>
-$ xcrun agvtool next-version -all
-Setting version of project MyProject to:
-    2.
-
-Also setting CFBundleVersion key (assuming it exists)
-
-Updating CFBundleVersion in Info.plist(s)...
-
-Updated CFBundleVersion in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2
-</pre>
-
-<p><strong><em>注意：*</em></strong> 此命令是将工程编译号自动增加为下一个最大的整数。例如从2到3、1.3到2。</p>
-<h4 id="将编译号设置为指定版本"><a href="#将编译号设置为指定版本" class="headerlink" title="将编译号设置为指定版本"></a>将编译号设置为指定版本</h4><p>运行下列命令：</p>
-<p>`agvtool new-version -all <your_specific_version>``</your_specific_version></p>
-<p>例如将编译号设置为2.6.9：</p>
-<pre>
-$ xcrun agvtool new-version -all 2.6.9
-Setting version of project MyProject to:
-    2.6.9
-
-Also setting CFBundleVersion key (assuming it exists)
-
-Updating CFBundleVersion in Info.plist(s)...
-
-Updated CFBundleVersion in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist" to 2.6.9
-</pre>
-
-<h4 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h4><p>使用以下命令查看当前版本号：</p>
-<p><code>agvtool what-marketing-version</code></p>
-<p>例如：</p>
-<pre>
-$ xcrun agvtool what-marketing-version
-No marketing version number (CFBundleShortVersionString) found for Jambase targets.
-
-Looking for marketing version in native targets...
-Looking for marketing version (CFBundleShortVersionString) in native targets...
-
-Found CFBundleShortVersionString of "2.0" in "MyProject.xcodeproj/../MyProject/MyProject-Info.plist"
-</pre>
-
-<p>使用以下命令查看当前编译号：</p>
-<p><code>agvtool what-version</code></p>
-<p>例如：</p>
-<pre>
-xcrun agvtool what-version
-Current version of project MyProject is:
-    2.2
-</pre>
-
-
-<h3 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h3><p>wget是一个下载文件的工具,它用在命令行下</p>
-<p><a href="http://www.jb51.net/LINUXjishu/86326.html" target="_blank" rel="external">参考</a></p>
-<h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><p><code>brew install wget</code></p>
-<h3 id="sips-批量处理图片"><a href="#sips-批量处理图片" class="headerlink" title="sips 批量处理图片"></a>sips 批量处理图片</h3><h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p>如果你想批量修改一批图片（尺寸、旋转、反转等），但是你有不会或没有PS，怎么办呢？使用sips命令可以高效完成这些功能，例如：</p>
-<p>#把当前用户图片文件夹下的所有JPG图片宽度缩小为800px，高度按比例缩放</p>
-<p><code>sips -Z 800 ~/Pictures/*.JPG</code></p>
-<p>顺时针旋转90˚</p>
-<p><code>sips -r 90 ~/Pictures/*.JPG</code></p>
-<p>垂直反转</p>
-<p><code>sips -f vertical ~/Pictures/*.JPG</code></p>
-<p>更多命令可以用sips -h查看。</p>
-<h3 id="vi-命令大全"><a href="#vi-命令大全" class="headerlink" title="vi 命令大全"></a><a href="http://www.cnblogs.com/mahang/archive/2011/09/01/2161672.html" target="_blank" rel="external">vi 命令大全</a></h3><hr>
-<h3 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h3><p>下载地址 macx.cn</p>
-<h4 id="Charles-抓包"><a href="#Charles-抓包" class="headerlink" title="Charles 抓包"></a>Charles 抓包</h4><h4 id="cheatsheet-快捷键提醒工具"><a href="#cheatsheet-快捷键提醒工具" class="headerlink" title="cheatsheet 快捷键提醒工具"></a>cheatsheet 快捷键提醒工具</h4><h4 id=""><a href="#" class="headerlink" title=""></a><a href="/2017/01/30/iTerm/" title="iTerm">iTerm</a></h4><h4 id="cornerstone"><a href="#cornerstone" class="headerlink" title="cornerstone"></a>cornerstone</h4><h4 id="Reveal-分析IOS-app-UI-结构利器"><a href="#Reveal-分析IOS-app-UI-结构利器" class="headerlink" title="Reveal 分析IOS app UI 结构利器"></a>Reveal 分析IOS app UI 结构利器</h4><h4 id="Raw"><a href="#Raw" class="headerlink" title="Raw"></a>Raw</h4><h4 id="Raw-1"><a href="#Raw-1" class="headerlink" title="Raw"></a>Raw</h4><h4 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h4><h4 id="subline"><a href="#subline" class="headerlink" title="subline"></a>subline</h4><h4 id="Day-one-笔记"><a href="#Day-one-笔记" class="headerlink" title="Day one 笔记"></a>Day one 笔记</h4><h4 id="Go2Shell"><a href="#Go2Shell" class="headerlink" title="Go2Shell"></a>Go2Shell</h4><h4 id="Do-http"><a href="#Do-http" class="headerlink" title="Do http"></a>Do http</h4><h4 id="Lantern-蓝灯翻墙"><a href="#Lantern-蓝灯翻墙" class="headerlink" title="Lantern 蓝灯翻墙"></a>Lantern 蓝灯翻墙</h4><p>先这样….. 慢慢在更新</p>
-<hr>
-<h3 id="Xcode常用插件"><a href="#Xcode常用插件" class="headerlink" title="Xcode常用插件"></a>Xcode常用插件</h3><h4 id="Alcatraz-Xcode-插件管理"><a href="#Alcatraz-Xcode-插件管理" class="headerlink" title="Alcatraz Xcode  插件管理"></a>Alcatraz Xcode  插件管理</h4><h4 id="AdjustFontSize-cmd-来调整字体大小"><a href="#AdjustFontSize-cmd-来调整字体大小" class="headerlink" title="AdjustFontSize cmd + - 来调整字体大小"></a>AdjustFontSize cmd + - 来调整字体大小</h4><h4 id="VVDocumenter-Xcode-快速添加添加代码注视"><a href="#VVDocumenter-Xcode-快速添加添加代码注视" class="headerlink" title="VVDocumenter-Xcode 快速添加添加代码注视"></a>VVDocumenter-Xcode 快速添加添加代码注视</h4><h4 id="XAlign-自动对齐代码的插件"><a href="#XAlign-自动对齐代码的插件" class="headerlink" title="XAlign 自动对齐代码的插件"></a>XAlign 自动对齐代码的插件</h4><h4 id="KSImageNamed-Xcode"><a href="#KSImageNamed-Xcode" class="headerlink" title="KSImageNamed-Xcode"></a>KSImageNamed-Xcode</h4>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/UI命名规范/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/30/UI命名规范/" itemprop="url">
-                  UI命名规范
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T19:34:48+08:00">
-                2017-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IOS/" itemprop="url" rel="index">
-                    <span itemprop="name">IOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>一个好的命名规范会让人感觉到舒服，而且看到UI资源名字就能知道这是一个什么东东～～这样可以和UED的同时沟通给出合理的命名</p>
+<h4 id="NSURLProtocol-定义"><a href="#NSURLProtocol-定义" class="headerlink" title="NSURLProtocol 定义"></a>NSURLProtocol 定义</h4><p>&emsp;&emsp;NSURLProtocol能够让你去重新定义苹果的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165-BCICJDHA" target="_blank" rel="external">URL加载系统</a> (URL Loading System)的行为，URL Loading System里有许多类用于处理URL请求，比如NSURL，NSURLRequest，NSURLConnection和NSURLSession等，当URL Loading System使用NSURLRequest去获取资源的时候，它会创建一个NSURLProtocol子类的实例，你不应该直接实例化一个NSURLProtocol，NSURLProtocol看起来像是一个协议，但其实这是一个类，而且必须使用该类的子类，并且需要被注册。</p>
+<h4 id="重定向网络请求"><a href="#重定向网络请求" class="headerlink" title="重定向网络请求"></a><span id="重定向网络请求">重定向网络请求</span></h4><p>&emsp;&emsp;最近在项目里由于电信那边发生dns发生域名劫持，因此需要手动将URL请求的域名重定向到指定的IP地址，但是由于请求可能是通过NSURLConnection,NSURLSession或者AFNetworking等方式，因此要想统一进行处理，一开始是想通过Method Swizzling去hook cfnetworking底层方法，后来发现其实有个更好的方法–NSURLProtocol。</p>
+<h5 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h5><p><strong>拦截网络请求</strong></p>
+<h4 id="子类化NSURLProtocol并注册"><a href="#子类化NSURLProtocol并注册" class="headerlink" title="子类化NSURLProtocol并注册"></a>子类化NSURLProtocol并注册</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@interface EFURLProtocol : NSURLProtocol</div></pre></td></tr></table></figure>
+<p>然后在application:didFinishLaunchingWithOptions:方法中注册该CustomURLProtocol，一旦注册完毕后，它就有机会来处理所有交付给URL Loading system的网络请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">    //注册protocol</div><div class="line">    [NSURLProtocol registerClass:[CustomURLProtocol class]];</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="现在可以开始实现NSURLProtocol的一些方法："><a href="#现在可以开始实现NSURLProtocol的一些方法：" class="headerlink" title="现在可以开始实现NSURLProtocol的一些方法："></a>现在可以开始实现NSURLProtocol的一些方法：</h5><blockquote>
+<p><a href="#">canInitWithRequest</a></p>
 </blockquote>
-<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><img src="/2017/01/30/UI命名规范/1.png" alt="1.png" title="">
-<img src="/2017/01/30/UI命名规范/2.png" alt="2.png" title="">
-<h3 id="参考资源文件命名列表"><a href="#参考资源文件命名列表" class="headerlink" title="参考资源文件命名列表"></a>参考资源文件命名列表</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th style="text-align:right">英文</th>
-<th style="text-align:center">简称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>按钮</td>
-<td style="text-align:right">button</td>
-<td style="text-align:center">btn</td>
-</tr>
-<tr>
-<td>标签</td>
-<td style="text-align:right">lable</td>
-<td style="text-align:center">lbl</td>
-</tr>
-<tr>
-<td>顶部导航栏</td>
-<td style="text-align:right">navigationbar</td>
-<td style="text-align:center">nav</td>
-</tr>
-<tr>
-<td>底部tab栏</td>
-<td style="text-align:right">tabbar</td>
-<td style="text-align:center">tab</td>
-</tr>
-<tr>
-<td>图片</td>
-<td style="text-align:right">picture</td>
-<td style="text-align:center">pic</td>
-</tr>
-<tr>
-<td>文本框</td>
-<td style="text-align:right">textview</td>
-<td style="text-align:center">txt</td>
-</tr>
-<tr>
-<td>列表行</td>
-<td style="text-align:right">uitableviewcell</td>
-<td style="text-align:center">cell</td>
-</tr>
-<tr>
-<td>表格</td>
-<td style="text-align:right">tableview</td>
-<td style="text-align:center">tableview</td>
-</tr>
-<tr>
-<td>背景</td>
-<td style="text-align:right">background</td>
-<td style="text-align:center">bg</td>
-</tr>
-<tr>
-<td>图标</td>
-<td style="text-align:right">iocn</td>
-<td style="text-align:center">icon</td>
-</tr>
-<tr>
-<td>角标</td>
-<td style="text-align:right">tip</td>
-<td style="text-align:center">tip</td>
-</tr>
-<tr>
-<td>分割线</td>
-<td style="text-align:right">line</td>
-<td style="text-align:center">line</td>
-</tr>
-<tr>
-<td>视频</td>
-<td style="text-align:right">video</td>
-<td style="text-align:center">video</td>
-</tr>
-<tr>
-<td>音频</td>
-<td style="text-align:right">audio</td>
-<td style="text-align:center">audio</td>
-</tr>
-<tr>
-<td>引导</td>
-<td style="text-align:right">leading</td>
-<td style="text-align:center">leading</td>
-</tr>
-<tr>
-<td>游戏</td>
-<td style="text-align:right">game</td>
-<td style="text-align:center">game</td>
-</tr>
-<tr>
-<td>应用</td>
-<td style="text-align:right">app</td>
-<td style="text-align:center">app</td>
-</tr>
-<tr>
-<td>关于</td>
-<td style="text-align:right">about</td>
-<td style="text-align:center">about</td>
-</tr>
-<tr>
-<td>反馈</td>
-<td style="text-align:right">feedback</td>
-<td style="text-align:center">feedback</td>
-</tr>
-<tr>
-<td>用户名</td>
-<td style="text-align:right">username</td>
-<td style="text-align:center">username</td>
-</tr>
-<tr>
-<td>密码</td>
-<td style="text-align:right">password</td>
-<td style="text-align:center">password</td>
-</tr>
-<tr>
-<td>动态</td>
-<td style="text-align:right">dynamic</td>
-<td style="text-align:center">dynamic</td>
-</tr>
-<tr>
-<td>标题</td>
-<td style="text-align:right">title</td>
-<td style="text-align:center">title</td>
-</tr>
-<tr>
-<td>更多</td>
-<td style="text-align:right">more</td>
-<td style="text-align:center">more</td>
-</tr>
-<tr>
-<td>级别</td>
-<td style="text-align:right">level</td>
-<td style="text-align:center">level</td>
-</tr>
-<tr>
-<td>消息</td>
-<td style="text-align:right">massage</td>
-<td style="text-align:center">msg</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常用事件命名列表"><a href="#常用事件命名列表" class="headerlink" title="常用事件命名列表"></a>常用事件命名列表</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th style="text-align:right">英文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>关闭</td>
-<td style="text-align:right">close</td>
-</tr>
-<tr>
-<td>分享</td>
-<td style="text-align:right">share</td>
-</tr>
-<tr>
-<td>返回</td>
-<td style="text-align:right">back</td>
-</tr>
-<tr>
-<td>下载</td>
-<td style="text-align:right">download</td>
-</tr>
-<tr>
-<td>评论</td>
-<td style="text-align:right">comment</td>
-</tr>
-<tr>
-<td>搜索</td>
-<td style="text-align:right">search</td>
-</tr>
-<tr>
-<td>进入</td>
-<td style="text-align:right">enter</td>
-</tr>
-<tr>
-<td>刷新</td>
-<td style="text-align:right">refersh</td>
-</tr>
-<tr>
-<td>停止</td>
-<td style="text-align:right">stop</td>
-</tr>
-<tr>
-<td>设置</td>
-<td style="text-align:right">setting</td>
-</tr>
-<tr>
-<td>清除</td>
-<td style="text-align:right">clear</td>
-</tr>
-<tr>
-<td>提交</td>
-<td style="text-align:right">submit</td>
-</tr>
-<tr>
-<td>登录</td>
-<td style="text-align:right">login</td>
-</tr>
-<tr>
-<td>退出登录</td>
-<td style="text-align:right">loginout</td>
-</tr>
-<tr>
-<td>注册</td>
-<td style="text-align:right">register</td>
-</tr>
-<tr>
-<td>忘记</td>
-<td style="text-align:right">forget</td>
-</tr>
-<tr>
-<td>记住</td>
-<td style="text-align:right">remenber</td>
-</tr>
-<tr>
-<td>删除</td>
-<td style="text-align:right">del</td>
-</tr>
-<tr>
-<td>编辑</td>
-<td style="text-align:right">edit</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常用的命名状态列表"><a href="#常用的命名状态列表" class="headerlink" title="常用的命名状态列表"></a>常用的命名状态列表</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th style="text-align:right">英文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>正常</td>
-<td style="text-align:right">normal</td>
-</tr>
-<tr>
-<td>选中</td>
-<td style="text-align:right">selected</td>
-</tr>
-<tr>
-<td>不可用</td>
-<td style="text-align:right">disabled</td>
-</tr>
-<tr>
-<td>高亮</td>
-<td style="text-align:right">highlighted</td>
-</tr>
-<tr>
-<td>新</td>
-<td style="text-align:right">new</td>
-</tr>
-<tr>
-<td>旧</td>
-<td style="text-align:right">old</td>
-</tr>
-<tr>
-<td>错误</td>
-<td style="text-align:right">error</td>
-</tr>
-<tr>
-<td>前一个</td>
-<td style="text-align:right">pre</td>
-</tr>
-<tr>
-<td>后一个</td>
-<td style="text-align:right">next</td>
-</tr>
-<tr>
-<td>当前</td>
-<td style="text-align:right">current</td>
-</tr>
-</tbody>
-</table>
-<h3 id="图片尺寸规范"><a href="#图片尺寸规范" class="headerlink" title="图片尺寸规范"></a>图片尺寸规范</h3><h4 id="AppIcon尺寸图"><a href="#AppIcon尺寸图" class="headerlink" title="AppIcon尺寸图"></a>AppIcon尺寸图</h4><table>
-<thead>
-<tr>
-<th>尺寸</th>
-<th style="text-align:right">命名</th>
-<th style="text-align:right">一倍图</th>
-<th style="text-align:right">二倍图</th>
-<th style="text-align:right">三倍图</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>29*29</td>
-<td style="text-align:right">Icon_29</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">√</td>
-</tr>
-<tr>
-<td>40*40</td>
-<td style="text-align:right">Icon_40</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-</tr>
-<tr>
-<td>57*57</td>
-<td style="text-align:right">Icon_57</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">x</td>
-</tr>
-<tr>
-<td>60*60</td>
-<td style="text-align:right">Icon_60</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">√</td>
-</tr>
-</tbody>
-</table>
-<h4 id="LaunchImage尺寸图"><a href="#LaunchImage尺寸图" class="headerlink" title="LaunchImage尺寸图"></a>LaunchImage尺寸图</h4><table>
-<thead>
-<tr>
-<th>尺寸</th>
-<th style="text-align:right">命名</th>
-<th style="text-align:right">一倍图</th>
-<th style="text-align:right">二倍图</th>
-<th style="text-align:right">三倍图</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>640*640</td>
-<td style="text-align:right">LaunchImage-700-568h</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">x</td>
-</tr>
-<tr>
-<td>640*960</td>
-<td style="text-align:right">LaunchImage-700</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">x</td>
-</tr>
-<tr>
-<td>750*1134</td>
-<td style="text-align:right">LaunchImage-800-667h</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-<td style="text-align:right">x</td>
-</tr>
-<tr>
-<td>1242*2208</td>
-<td style="text-align:right">LaunchImage-800-Portrait-736h</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">x</td>
-<td style="text-align:right">√</td>
-</tr>
-</tbody>
-</table>
-<h4 id="App-引导图"><a href="#App-引导图" class="headerlink" title="App 引导图"></a>App 引导图</h4><ul>
-<li><p>因为app引导图只应用一次，png格式的图片又太大会增加包的大小，所以要使用jpg的图片</p>
-</li>
-<li><p>因为要适配每一个机型所以要针对每一款手机的大小用一张图作适配</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>设备</th>
-<th style="text-align:right">尺寸</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>iphone4</td>
-<td style="text-align:right">640*960</td>
-</tr>
-<tr>
-<td>iphone5</td>
-<td style="text-align:right">640*1136</td>
-</tr>
-<tr>
-<td>iphone6</td>
-<td style="text-align:right">750*1134</td>
-</tr>
-<tr>
-<td>iphone6p（设计版本）</td>
-<td style="text-align:right">1242*2208</td>
-</tr>
-<tr>
-<td>iphone7</td>
-<td style="text-align:right">750*1334</td>
-</tr>
-<tr>
-<td>iphone7p</td>
-<td style="text-align:right">1920*1080</td>
-</tr>
-<tr>
-<td>ipad</td>
-<td style="text-align:right">1024*768</td>
-</tr>
-<tr>
-<td>ipad@2x</td>
-<td style="text-align:right">2048*1536</td>
-</tr>
-</tbody>
-</table>
-<h4 id="页面引导图"><a href="#页面引导图" class="headerlink" title="页面引导图"></a>页面引导图</h4><ul>
-<li>因为页面引导图一般都是透明的图，所以图的格式必须是png格式的<br></li>
-</ul>
-<ol>
-<li>根据机型只要一张png格式的图片</li>
-<li>做图时最好和技术人员沟通图片的大小</li>
-<li>iphone4、iphone5、iphone6只需要一张2倍图，iphone6p需要一张3倍图</li>
-</ol>
-<ul>
-<li>页面引导适配大多数会出现两种类型</li>
-</ul>
-<ol>
-<li>全屏类型</li>
-<li>部分界面适配</li>
-</ol>
-<img src="/2017/01/30/UI命名规范/3.png" alt="3.png" title="">
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/静态库打包-基础版/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/30/静态库打包-基础版/" itemprop="url">
-                  静态库打包-基础版
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T18:05:34+08:00">
-                2017-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="setup-1"><a href="#setup-1" class="headerlink" title="setup 1"></a>setup 1</h3><p><em>tag 设置页中点击+号。如图</em></p>
-<img src="/2017/01/30/静态库打包-基础版/1.png" alt="1.png" title="">
-<p><em>完成后得效果</em></p>
-<img src="/2017/01/30/静态库打包-基础版/2.png" alt="2.png" title="">
-<p><em>可以通过修改 scheme 名字</em></p>
-<img src="/2017/01/30/静态库打包-基础版/3.png" alt="3.png" title="">
-<p><em>工程建立以后，删除默认的.h .m 文件</em></p>
-<h3 id="setup-2"><a href="#setup-2" class="headerlink" title="setup 2"></a>setup 2</h3><p><em>1、在 .a 的 TAG 中 点击 Build Phases</em></p>
-<p><em>2、在 .a 的 Headers 中 把需要编译，并依赖的头文件加进来</em><br><em>效果就是这样得</em><br><img src="/2017/01/30/静态库打包-基础版/4.png" alt="4.png" title=""><br><em>3、在 .a 的 Compile Sources 中 把需要打入到.a 的 .m 文件加进来</em><br><img src="/2017/01/30/静态库打包-基础版/5.png" alt="5.png" title=""></p>
-<h3 id="setup-3"><a href="#setup-3" class="headerlink" title="setup 3"></a>setup 3</h3><p><em>编译静态库</em></p>
-<p><em>1、修改 release or debug 。显然如果对外发布需要是release版本的</em></p>
-<p><em>2、Edit 中run 修改 为release 版本</em></p>
-<p><em>3、bulid</em></p>
-<p>设备<br><img src="/2017/01/30/静态库打包-基础版/6.png" alt="6.png" title=""></p>
-<p><br><br>模拟器<br><img src="/2017/01/30/静态库打包-基础版/7.png" alt="7.png" title=""></p>
-<h3 id="setup-4"><a href="#setup-4" class="headerlink" title="setup 4"></a>setup 4</h3><p><em>build完之后呢？</em></p>
-<p><em>1、查看 bulid 后 DerivedDate/xxxxx/Build/Products/   后的两组文件 {Release-iphoneos,Release-iphonesimulator}{Debug-iphoneos,Debug-iphonesimulator}</em></p>
-<img src="/2017/01/30/静态库打包-基础版/8.png" alt="8.png" title="">
-<p><em>2、选择一组 合并</em></p>
-<ul>
-<li>为什么要合并呢?</li>
-</ul>
-<p>一个真机使用，一个是模拟器使用。但是每次真机测试的时候，都要换成真机的.a库，模拟器测试的时候又要换回来，特别麻烦。一天几十次真机和模拟器测试，来回折腾浪费了很多时间，我终于受不了，网上也没一个完整的解决方案，google了下方法，最后通过自己的实践，成功的解决了.a静态库文件通用性问题，希望这个能给大家带来方便，痛苦的童鞋们，可以解脱了!</p>
-<ul>
-<li>通过命令合并</li>
-</ul>
-<p>lipo -create /Users/songjie/Library/Developer/Xcode/DerivedData/JMPublicLib-ckepmguzidcclbctdmounjlpegvq/Build/Products/Release-iphoneos/libEFPublicLib.a /Users/songjie/Library/Developer/Xcode/DerivedData/JMPublicLib-ckepmguzidcclbctdmounjlpegvq/Build/Products/Release-iphonesimulator/libEFPublicLib.a -output /Users/songjie/Desktop/输出的文件.a<br>ps:输出到桌面了<br>重要的部分：lipo -create 真机.a 路径 splece 模拟器.a路径<br>-output /Users/songjie/Desktop/输出的文件.a</p>
-<ul>
-<li><p>通过shell合并</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">点击<span class="keyword">Add </span><span class="keyword">Build </span>Phase按钮，在弹出的菜单中选择<span class="keyword">Add </span>Run Script，如下图:</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<img src="/2017/01/30/静态库打包-基础版/9.png" alt="9.png" title="">
-<img src="/2017/01/30/静态库打包-基础版/10.png" alt="10.png" title="">
- <figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">现在你需要设置脚本项。展开Run Script模块，在Shell行下粘贴如下代码:</div><div class="line"></div><div class="line"><span class="comment"># define output folder environment variable</span></div><div class="line">UNIVERSAL_OUTPUTFOLDER=$&#123;BUILD_DIR&#125;/$&#123;CONFIGURATION&#125;-universal</div><div class="line"></div><div class="line"><span class="comment"># Step 1. Build Device and Simulator versions</span></div><div class="line">xcodebuild -target ImageFilters ONLY_ACTIVE_ARCH=NO -configuration $&#123;CONFIGURATION&#125; -sdk iphoneos  BUILD_DIR=<span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>"</span> BUILD_ROOT=<span class="string">"<span class="subst">$&#123;BUILD_ROOT&#125;</span>"</span></div><div class="line">xcodebuild -target ImageFilters -configuration $&#123;CONFIGURATION&#125; -sdk iphonesimulator -arch i386 BUILD_DIR=<span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>"</span> BUILD_ROOT=<span class="string">"<span class="subst">$&#123;BUILD_ROOT&#125;</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># make sure the output directory exists</span></div><div class="line"><span class="keyword">mkdir</span> -p <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># Step 2. Create universal binary file using lipo</span></div><div class="line">lipo -create -output <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span> <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphoneos/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span> <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphonesimulator/lib<span class="subst">$&#123;PROJECT_NAME&#125;</span>.a"</span></div><div class="line"></div><div class="line"><span class="comment"># Last touch. copy the header files. Just for convenience</span></div><div class="line">cp -R <span class="string">"<span class="subst">$&#123;BUILD_DIR&#125;</span>/<span class="subst">$&#123;CONFIGURATION&#125;</span>-iphoneos/include"</span> <span class="string">"<span class="subst">$&#123;UNIVERSAL_OUTPUTFOLDER&#125;</span>/"</span></div><div class="line"></div><div class="line">代码并不十分复杂，它是这样工作的:</div><div class="line">UNIVERSAL_OUTPUTFOLDER 包括了通用二进制包将要被存放的文件夹:“Debug-universal”</div><div class="line"></div><div class="line">Step <span class="number">1</span>. 第<span class="number">2</span>行执行了xcodebuild并命令它构建ARM架构的二进制文件。(你可以看到这行中的-sdk iphoneos参数)</div><div class="line">下一行再次执行了xcodebuild命令并在另一个文件夹中构建了一个针对Inter架构的iPhone模拟器的二进制文件，在这里关键参数是-sdk iphonesimulator -arch i386。(如果感兴趣，你可以在man page了解更多关于xcodebuild的资料)</div><div class="line"></div><div class="line">Step <span class="number">2</span>. 现在已经有了<span class="number">2</span>个.a文件分别对应两个架构。执行lipo -create，用它们创建出一个通用二进制。</div><div class="line"></div><div class="line">最后一行的作用是复制头文件到通用构建文件夹的外层。(用cp命令)</div></pre></td></tr></table></figure>
-<p><em>PS：由于对shell脚本不熟悉验证失败提示没有找到路径，熟悉的同学可以自己试试</em></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/IOS推送/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/30/IOS推送/" itemprop="url">
-                  IOS推送
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T17:55:05+08:00">
-                2017-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IOS/" itemprop="url" rel="index">
-                    <span itemprop="name">IOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#IOS消息推送机制的实现</p>
-<h4 id="setup-1"><a href="#setup-1" class="headerlink" title="setup 1"></a>setup 1</h4><p>通过我们自己的push服务器或者第三方（友盟），把消息发送给苹果（APNS）服务器上。</p>
-<h4 id="setup-2"><a href="#setup-2" class="headerlink" title="setup 2"></a>setup 2</h4><p>苹果服务器在注册push服务的iphone列表中查找标记的iphone，并把消息发送给这个iphone设备。</p>
-<h4 id="setup-3"><a href="#setup-3" class="headerlink" title="setup 3"></a>setup 3</h4><p>iphone把收到的信息传递给对应的应用程序。<br \=""></p>
-<p>简单吧  let’s go on…..</p>
-<hr>
-<h3 id="问题来了"><a href="#问题来了" class="headerlink" title="问题来了"></a>问题来了</h3><h5 id="NO-1：是不是每个app都可以收到通知服务？"><a href="#NO-1：是不是每个app都可以收到通知服务？" class="headerlink" title="NO 1：是不是每个app都可以收到通知服务？"></a>NO 1：是不是每个app都可以收到通知服务？</h5><p>不是的。你的app需要<a href="http://blog.csdn.net/shenjie12345678/article/details/41120637" target="_blank" rel="external">注册消息推送服务</a> <br></p>
-<h5 id="NO-2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？"><a href="#NO-2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？" class="headerlink" title="NO 2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？"></a>NO 2：那怎么来告诉苹果APNS往哪个iphone设备上推呢？</h5><p>对了，device token（令牌），那么怎么来获取它呢？<a href="www.xxxx.com">获取device token</a> <br></p>
-<p><code>需要提示的是在develop和ADHot或者线上证书调试的时候获取的device token是不一样的。</code><br></p>
+<p>这个方法主要是说明你是否打算处理对应的request，如果不打算处理，返回NO,如果打算处理，返回YES，然后你就需要处理该请求的所有东西,网络数据可以简单的通过NSURLConnection去获取，而且每个NSURLProtocol对象都有一个NSURLProtocolClient实例，可以通过该client将获取到的数据返回给URL Loading System。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (BOOL)canInitWithRequest:(NSURLRequest *)request &#123;</div><div class="line">    if ([self enabledParamSettingInSite:request.URL.absoluteString]) &#123;</div><div class="line">    //看看是否已经处理过了，防止无限循环</div><div class="line">        if ([NSURLProtocol propertyForKey:kEFURLProtocolKey inRequest:request]) &#123;</div><div class="line">            return NO;</div><div class="line">        &#125;else&#123;</div><div class="line">            return YES;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return NO;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong><a href="#">canonicalRequestForRequest</a></strong></p>
+<p>通常该方法你可以简单的直接返回request，但也可以在这里修改request，比如添加header，修改host等，并返回一个新的request，这是一个抽象方法，子类必须实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">+ (NSURLRequest *) canonicalRequestForRequest:(NSURLRequest *)request &#123;</div><div class="line">    NSMutableURLRequest *mutableReqeust = [request mutableCopy];</div><div class="line">    mutableReqeust = [self redirectHostInRequset:mutableReqeust];</div><div class="line">    return mutableReqeust;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+(NSMutableURLRequest*)redirectHostInRequset:(NSMutableURLRequest*)request</div><div class="line">&#123;</div><div class="line">    if ([request.URL host].length == 0) &#123;</div><div class="line">        return request;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    NSString *originUrlString = [request.URL absoluteString];</div><div class="line">    NSString *originHostString = [request.URL host];</div><div class="line">    NSRange hostRange = [originUrlString rangeOfString:originHostString];</div><div class="line">    if (hostRange.location == NSNotFound) &#123;</div><div class="line">        return request;</div><div class="line">    &#125;</div><div class="line">    //定向到bing搜索主页</div><div class="line">    NSString *ip = @&quot;cn.bing.com&quot;;</div><div class="line"></div><div class="line">    // 替换域名</div><div class="line">    NSString *urlString = [originUrlString stringByReplacingCharactersInRange:hostRange withString:ip];</div><div class="line">    NSURL *url = [NSURL URLWithString:urlString];</div><div class="line">    request.URL = url;</div><div class="line"></div><div class="line">    return request;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>既然是由push服务器去发消息给苹果，那么就需要app把令牌提供给我们或者第三方的Push服务器。 （一般都会要求你得到device token后上报seaver）<br></p>
+<p><a href="#">requestIsCacheEquivalent</a></p>
 </blockquote>
-<pre>
-#pragma mark - remote notification related
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-- ....收到devicetoken
-    //上传服务器
-    [UMessage registerDeviceToken:deviceToken];
-    [[EFNetworkManager sharedManager] uploadDeviceInfo];//上报设备信息
-}
-#pragma mark - 注册推送失败
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    EFLOG(@"----failed---to--regisiter--for--remote---notification---%@",error.localizedDescription);
-}
-
-#pragma mark - didReceiveRemoteNotification - 收到推送
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    [EFUMessageHelper didReceiveRemoteNotification:userInfo];
-
-}
-处理推送
-- (void)application:(UIApplication *)application didReceiveRemoteNotification
-                   :(NSDictionary *)userInfo fetchCompletionHandler
-                   :(void (^)(UIBackgroundFetchResult))completionHandler {
-    [EFUMessageHelper didReceiveRemoteNotification:userInfo];
-    completionHandler(UIBackgroundFetchResultNewData);
-    return;
-}
-</pre>
-
-<h5 id="NO-4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。"><a href="#NO-4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。" class="headerlink" title="NO 4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。"></a>NO 4：推送的消息没有格式吗？还是想发什么就是什么？这个其实对app不是特别关心，大家了解就好。</h5><pre>
-普通的文本
-{
-    aps =     {
-        alert = "hello, everyone";
-        badge = 2;
-        sound = default;
-    };
-}
-也可以是一个JSON的Dictionary
-其格式如下：
-* body
-* action-loc-key
-* loc-key
-* loc-args
-* launch-image
-{
-    action =     {
-        type = 4;
-    };
-    aps =     {
-        alert = "hello, everyone";
-        badge = 4;
-    };
-}
-</pre>
-
-<h5 id="NO-5-到目前为止Push服务器就可以推送消息给APNS了吗？"><a href="#NO-5-到目前为止Push服务器就可以推送消息给APNS了吗？" class="headerlink" title="NO 5:到目前为止Push服务器就可以推送消息给APNS了吗？"></a>NO 5:到目前为止Push服务器就可以推送消息给APNS了吗？</h5><p>如果你回答是那就麻烦了。如果是这样的话你试想这样成立的话，那么苹果APNS就不知道是哪个app的推送服务了，只要手机安装的app。都有 dang 、dang 弹出推送提示吗？<br>所以Push服务器要想给APNS服务器推送消息，必须需要一个和APNS连接的证书，反正需要一个叫做 .pem的证书文件。<br><br>注册消息推送服务后回得到两个证书<br><br>1、<code>Push.p12</code> to pem1<br><br>2、<code>aps_developer_identity.cer</code> to pem2<br><br>3、pem1 + pem2 = pem（合并）</p>
-<p><a href="http://blog.csdn.net/silencetq/article/details/8115501" target="_blank" rel="external">pem证书的制作</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">+ (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b</div><div class="line">&#123;</div><div class="line">    return [super requestIsCacheEquivalent:a toRequest:b];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="#">-startLoading</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)startLoading</div><div class="line">&#123;</div><div class="line">    NSMutableURLRequest *mutableReqeust = [[self request] mutableCopy];</div><div class="line">    //标示改request已经处理过了，防止无限循环</div><div class="line">    [NSURLProtocol setProperty:@YES forKey:URLProtocolHandledKey inRequest:mutableReqeust];</div><div class="line">    self.connection = [NSURLConnection connectionWithRequest:mutableReqeust delegate:self];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="#">-stopLoading</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)stopLoading</div><div class="line">&#123;</div><div class="line">    [self.connection cancel];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="NSURLConnectionDataDelegate方法"><a href="#NSURLConnectionDataDelegate方法" class="headerlink" title="NSURLConnectionDataDelegate方法"></a>NSURLConnectionDataDelegate方法</h5><p>在处理网络请求的时候会调用到该代理方法，我们需要将收到的消息通过client返回给URL Loading System。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response &#123;</div><div class="line">    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data &#123;</div><div class="line">    [self.client URLProtocol:self didLoadData:data];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void) connectionDidFinishLoading:(NSURLConnection *)connection &#123;</div><div class="line">    [self.client URLProtocolDidFinishLoading:self];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error &#123;</div><div class="line">    [self.client URLProtocol:self didFailWithError:error];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="忽略网络请求，使用本地缓存"><a href="#忽略网络请求，使用本地缓存" class="headerlink" title="忽略网络请求，使用本地缓存"></a><span id="忽略网络请求，使用本地缓存">忽略网络请求，使用本地缓存</span></h4><p>参考<a href="#">小端攻略库</a>的离线缓存</p>
+<h4 id="自定义网络请求的返回结果"><a href="#自定义网络请求的返回结果" class="headerlink" title="自定义网络请求的返回结果"></a><span id="自定义网络请求的返回结果">自定义网络请求的返回结果</span></h4><h4 id="一些全局的网络请求设置"><a href="#一些全局的网络请求设置" class="headerlink" title="一些全局的网络请求设置"></a><span id="一些全局的网络请求设置">一些全局的网络请求设置</span></h4><p>指对你需要简析的域名做处理。</p>
 
           
         
@@ -1884,7 +1356,7 @@ Current version of project MyProject is:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/30/iTerm/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/关于IOS中的cookie/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="songjie">
@@ -1909,8 +1381,8 @@ Current version of project MyProject is:
             
               
                 
-                <a class="post-title-link" href="/2017/01/30/iTerm/" itemprop="url">
-                  iTerm
+                <a class="post-title-link" href="/2017/02/01/关于IOS中的cookie/" itemprop="url">
+                  关于IOS中的cookie
                 </a>
               
             
@@ -1926,8 +1398,8 @@ Current version of project MyProject is:
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-30T12:08:54+08:00">
-                2017-01-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T18:28:45+08:00">
+                2017-02-01
               </time>
             
 
@@ -1949,8 +1421,319 @@ Current version of project MyProject is:
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index">
-                    <span itemprop="name">tools</span>
+                  <a href="/categories/me/" itemprop="url" rel="index">
+                    <span itemprop="name">me</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cookie简介"><a href="#cookie简介" class="headerlink" title="cookie简介"></a>cookie简介</h3><p>Cookie是在客户端存储服务器状态的一种机制,Web服务器可以通过Set-Cookie或者Set-Cookie2 HTTP头部设置Cookie。<br>Cookie可以分为两类，会话Cookie和持久Cookie,会话Cookie是临时Cookie,当前会话结束(浏览器退出)时Cookie会被删除。持久Cookie会存储在用户的硬盘上,浏览器退出，然后重新启动后Cookie仍然存在。会话Cookie和持久Cookie的区别在于过期时间，如果设置了Discard参数(Cookie 版本1)或者没有设置Expires(Cookie版本0)或Max-Age(Cookie版本1)设置过期时间，则此Cookie为会话Cookie<br>Cookie有两个版本,一个是版本0(Netscape Cookies)和版本1(RFC 2965),目前大多数服务器使用的Cookie 0。<br>有关Cookie的详细内容请参考<a href="http://dl.vmall.com/c0ldb5894p" target="_blank" rel="external">《HTTP权威指南》</a>的相关章节。</p>
+<h3 id="NSHTTPCookie"><a href="#NSHTTPCookie" class="headerlink" title="NSHTTPCookie"></a>NSHTTPCookie</h3><p>在iOS中使用<a href="https://developer.apple.com/reference/foundation/nshttpcookie" target="_blank" rel="external">NSHTTPCookie</a>类封装一条cookie,通过NSHTTPCookie的方法读取到cookie的通用属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSUInteger)version;</div><div class="line">- (NSString *)name;</div><div class="line">- (NSString *)value;</div><div class="line">- (NSString *)domain;</div><div class="line">- (NSString *)path;</div><div class="line">- (BOOL)isSessionOnly;</div><div class="line">....</div></pre></td></tr></table></figure></p>
+<p>可以通过手工赋值的方式创建Cookie,如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">+ (id)cookieWithProperties:(NSDictionary *)properties;</div><div class="line">- (id)initWithProperties:(NSDictionary *)properties;</div></pre></td></tr></table></figure></p>
+<p>也可以从Cookie中读取到所有属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (NSDictionary *)properties;</div></pre></td></tr></table></figure></p>
+<p>使用NSHTTPCookie的类方法可以将NSHTTPCookie实例与HTTP cookie header相互转换.<br>根据NSHTTPCookie实例数组生成对应的HTTP cookie header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (NSDictionary *)requestHeaderFieldsWithCookies:(NSArray *)cookies;</div></pre></td></tr></table></figure></p>
+<p>从headerFileds中读取到Cookie相关内容,生成NSHTTPCookie实例对象数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (NSArray *)cookiesWithResponseHeaderFields:(NSDictionary *)headerFields forURL:(NSURL *)theURL;</div></pre></td></tr></table></figure>
+<p>该方法会忽略headerFileds中与cookie无关的字段，如果headerFileds中的cookie没有指定domain,则使用theURL的domain,如果没有指定path,则使用”/”.</p>
+<p>除非NSURLRequest明确指定不使用cookie(<code>HTTPShouldHandleCookies</code>设为NO),否则URL loading system会自动为NSURLRequest发送合适的存储cookie。从NSURLResponse返回的cookie也会根据当前的cookie访问策略(cookie acceptance policy)接收到系统中。</p>
+<h3 id="NSHTTPCookieStorage"><a href="#NSHTTPCookieStorage" class="headerlink" title="NSHTTPCookieStorage"></a>NSHTTPCookieStorage</h3><p><a href="">NSHTTPCookieStorage</a>单件类提供了管理所有NSHTTPCookie对象的接口，在OS X里,cookie是在所有程序中共享的，而在iOS中,cookie只当当前应用中有效。</p>
+<p>通过sharedHTTPCookieStorage方法可获取到共享的NSHTTPCookieStorage单件对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (NSHTTPCookieStorage *)sharedHTTPCookieStorage；</div></pre></td></tr></table></figure></p>
+<p>使用NSHTTPCookieStorage单件对象可获取到当前存储的所有cookie<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (NSArray *)cookies</div></pre></td></tr></table></figure></p>
+<p>或针对特定URL的cookie</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (NSArray *)cookiesForURL:(NSURL *)theURL;</div></pre></td></tr></table></figure>
+<p>还可以添加/删除Cookie</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">– deleteCookie:</div><div class="line">– setCookie:</div><div class="line">– setCookies:forURL:mainDocumentURL:</div></pre></td></tr></table></figure>
+<p>通过NSHTTPCookieStorage可读取/修改cookie接收策略,默认为<code>NSHTTPCookieAcceptPolicyAlways</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (NSHTTPCookieAcceptPolicy)cookieAcceptPolicy；</div><div class="line">- (void)setCookieAcceptPolicy:(NSHTTPCookieAcceptPolicy)aPolicy.</div></pre></td></tr></table></figure>
+<p>一共有三种cookie accept policy,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef enum &#123;</div><div class="line">   NSHTTPCookieAcceptPolicyAlways,</div><div class="line">   NSHTTPCookieAcceptPolicyNever,</div><div class="line">   NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain</div><div class="line">&#125; NSHTTPCookieAcceptPolicy;</div></pre></td></tr></table></figure>
+<p><code>NSHTTPCookieAcceptPolicyAlways</code>:接收所有cookie,默认策略.<br><code>NSHTTPCookieAcceptPoicyNever</code>: 拒绝所有cookie<br><code>NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain</code>:只接收main document domain中的cookie.</p>
+<h3 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h3><p><code>NSHTTPCookieManagerCookiesChangedNotification</code></p>
+<p>当NSHTTPCookieStorage实例中的cookies变化时发出此通知。</p>
+<p><code>NSHTTPCookieManagerAcceptPolicyChangedNotification</code></p>
+<p>当NSHTTPCookieStorage实例的cookie acceptance policy变化时发出此通知。</p>
+<h3 id="Demo实现"><a href="#Demo实现" class="headerlink" title="Demo实现"></a>Demo实现</h3><p>保存cookie （先将cookie归档为data）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)saveCookies&#123;</div><div class="line">    NSData *cookies = [NSKeyedArchiver archivedDataWithRootObject:</div><div class="line">            [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies];</div><div class="line">    [[NSUserDefaults standardUserDefaults] setObject:cookies forKey:@&quot;savedCookie&quot;];</div><div class="line">    [[NSUserDefaults standardUserDefaults] synchronize];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>设定指定的cookie（解档）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)reloadStoredCookies&#123;</div><div class="line">  NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:</div><div class="line">                       [[NSUserDefaults standardUserDefaults]</div><div class="line">                                                 objectForKey:</div><div class="line">                      @&quot;savedC&quot;]</div><div class="line">  NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];</div><div class="line">  for (NSHTTPCookie *cookie in cookies) &#123;</div><div class="line">      [cookieStorage setCookie:cookie];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>cookie中Value保存的内容均为NSString类型，如果为其它类型无法生成cookie对象</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/常用的地址收藏/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/常用的地址收藏/" itemprop="url">
+                  常用的地址收藏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T18:09:53+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IOS/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://itunesconnect.apple.com" target="_blank" rel="external">苹果创建应用</a><br><a href="https://developer.apple.com/membercenter/index.action" target="_blank" rel="external">创建签名证书</a><br><a href="http://dev.umeng.com/push/ios/license-configuration-guide" target="_blank" rel="external">创建友盟推送证书</a><br><a href="https://itunes.apple.com/lookup?id=#id#" target="_blank" rel="external">根据itunesid获取app信息</a><br><a href="https://www.cocoacontrols.com" target="_blank" rel="external">UI CocoaControls</a><br><a href="http://codepen.io" target="_blank" rel="external">在线练习html、css及js</a><br>持续更新，记录有意思的网址</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/移动版本号注意事项/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="songjie">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="IT_金乌's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/移动版本号注意事项/" itemprop="url">
+                  移动版本号注意事项
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T16:48:09+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IOS/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS</span>
                   </a>
                 </span>
 
@@ -1987,37 +1770,60 @@ Current version of project MyProject is:
         
           
             <blockquote>
-<p>iTerm - 让你的 MAC 命令行更加丰富多彩</p>
+<p>移动端版本号注意事项</p>
 </blockquote>
-<p>今天要给大家介绍一个工具 <code>iTerm</code></p>
-<p><img src="http://swiftcafe.io/images/iterm/1.png?_=4679010" alt=""></p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>iTerm</code>  是一款完全免费的，专为 Mac OS 用户打造的命令行应用。我们可以打开它的官方网站看一看 www.iterm2.com</p>
-<h3 id="配色"><a href="#配色" class="headerlink" title="配色"></a>配色</h3><p><code>Perferences</code> -&gt; <code>Profiles</code> 选项卡里面可以找到 <code>Colors</code> 配色方案面板在右下角的下来选框中，我们可以看到有几种内置的配色方案供我们选择，比如黑色风格，白色风格，深蓝风格，等等：<br><img src="http://swiftcafe.io/images/iterm/5.png?_=4679010" alt=""></p>
-<h3 id="一款小工具-Go2Shell"><a href="#一款小工具-Go2Shell" class="headerlink" title="一款小工具 Go2Shell"></a>一款小工具 Go2Shell</h3><p>自行下载，下载后拖到工具栏就可以,这样你想进入到哪个目录就不需要 cd 路径了，只需要在当前要进入的路径点击工具栏上的Go2Shell图标就可以了</p>
-<img src="/2017/01/30/iTerm/Go2Shell.png" alt="Go2Shell.png" title="">
-<h3 id="一款小工具-autojump插件"><a href="#一款小工具-autojump插件" class="headerlink" title="一款小工具 autojump插件"></a>一款小工具 autojump插件</h3><p>brew install autojump 根据完装完的提示把命令添加到~/.zshrc中保存退出即可<br>autojump：zsh 和 autojump 的组合形成了 zsh 下最强悍的插件<br><br>j + ‘目录名字’</p>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><h5 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h5><p><code>Cmd + F</code><br><br>例如：ping 192.168.254.254 这是你cmd + F，在搜索框输入192 + Tab 会自动补全，你可以copy等等…任意操作。</p>
-<h5 id="显示和隐藏"><a href="#显示和隐藏" class="headerlink" title="显示和隐藏"></a>显示和隐藏</h5><p><code>cmd + 空格</code> 当然你可以自己设置，<code>Perferences</code> -&gt; <code>Keys</code> 左下角 <code>Hotkey</code> 选中复选框，自定义你的快捷键</p>
-<h5 id="标记某一行命令"><a href="#标记某一行命令" class="headerlink" title="标记某一行命令"></a>标记某一行命令</h5><p>这个功能简单来说就是，我们在某一行按下 <code>Cmd + Shift + M</code> 将这行标记下来。随后我们在需要的时候，可以按下 <code>Cmd + Shift + J</code> 就可以立即跳回这一行了。</p>
-<h5 id="剪贴板历史纪录"><a href="#剪贴板历史纪录" class="headerlink" title="剪贴板历史纪录"></a>剪贴板历史纪录</h5><p><code>Cmd + Shift + H</code> 这个也是一个很方便的特性,当你输入一个命令 copy 之后调用快捷键<code>Cmd + Shift + H</code> 你使用过的命令就会出现在剪贴板上，从此以后，尽情的复制和粘贴吧～</p>
-<h5 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h5><p>新建标签 <code>Cmd + t</code><br>关闭标签 <code>Cmd + w</code><br>切换标签 <code>Cmd + 数字</code> cmd + 左右 可切换标签<br>切换全屏 <code>Cmd + t</code></p>
-<h5 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h5><p>垂直分屏 <code>Cmd + d</code></p>
-<p>水平分屏 <code>Cmd + shift + d</code></p>
-<p>切换屏幕 <code>Cmd + option + 方向</code></p>
-<p>查看历史命令 <code>Cmd +</code> 有问题</p>
-<h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p>清除当前行：<code>ctrl + u</code></p>
-<p>到行首：<code>ctrl + a</code></p>
-<p>到行尾：<code>ctrl + e</code></p>
-<p>前进后退：<code>ctrl + f/b</code> (相当于左右方向键)</p>
-<p>上一条命令：<code>ctrl + p</code></p>
-<p>搜索命令历史：<code>ctrl + r</code></p>
-<p>删除当前光标的字符：<code>ctrl + d</code></p>
-<p>删除光标之前的字符：<code>ctrl + h</code></p>
-<p>删除光标之前的单词：<code>ctrl + w</code></p>
-<p>删除到文本末尾：<code>ctrl + k</code></p>
-<p>交换光标处文本：<code>ctrl + t</code></p>
-<p>清屏1：<code>command + r</code></p>
-<p>清屏2：<code>ctrl + l</code></p>
+<h3 id="版本号描述"><a href="#版本号描述" class="headerlink" title="版本号描述"></a>版本号描述</h3><p>版本号规则为：A.B.C.D</p>
+<p>A代表重大修改的版本，如实现新的功能或重大变化的修订。</p>
+<p>B表示的修订，实现较突出的特点。</p>
+<p>C代表维护版本。</p>
+<p>D代表TD内部的build版本。</p>
+<p>以上版本号，对外只显示A.B.C，</p>
+<p>通过七牛部署安装时，需要显示的版本号为A.B.C.D</p>
+<h3 id="服务器端检测规则"><a href="#服务器端检测规则" class="headerlink" title="服务器端检测规则"></a>服务器端检测规则</h3><p>服务器端版本检测规则不变，客户端只会上报A.B.C</p>
+<h3 id="客户端处理规则"><a href="#客户端处理规则" class="headerlink" title="客户端处理规则"></a>客户端处理规则</h3><h4 id="Android版本号处理规则"><a href="#Android版本号处理规则" class="headerlink" title="Android版本号处理规则"></a>Android版本号处理规则</h4><p>以下内容是第一版，主要Android版本升级和现在的问题进行说明，确认后我会更新</p>
+<p>Android端在manifest配置文件中存在两个版本号,</p>
+<p>VersionCode：数据类型为Long，标识应用程序的发布版本号。该版本号主要用于版本升级判断，应用市场一般用此作为是否有新版本的判断条件。</p>
+<p>VersionName：数据类型为String，标识用户能够看到的自定义版本号。该值主要用户用于显示，一般不作为应用是否有新版本的判断条件</p>
+<p>VersionName默认构成为”A.B.C&lt;.D&gt;”,详细解释见 对VersionName的说明</p>
+<p>第一个数代表重大修改的版本，如实现新的功能或重大变化的修订。</p>
+<p>第二个数表示的修订，实现较突出的特点。</p>
+<p>第三个数代表维护版本。</p>
+<p>第四个数，如果存在代表测试时的Build版本，仅作为标识测试版本的递进，不做它用，在正式版本发布时会去掉。</p>
+<p>客户端只上报VersionName作为版本标识（上报VersionCode是更好的做法，见对Android版本升级的说明)</p>
+<p>Android端VersionName和VersionCode对应关系</p>
+<p>例， VersionName为2.3.11，对应VersionCode 为 20311</p>
+<p>例， VersionName为1.0.11，对应VersionCode 为 10011</p>
+<p>对VersionName的说明</p>
+<p>默认由”.”分隔的3位或者4位数字：A.B.C&lt;.D&gt;</p>
+<p>正式版：A.B.C</p>
+<p>Build版：D</p>
+<p>A代表最大版本，</p>
+<p>B代表较大需求变动，</p>
+<p>C代表普通需求变动，</p>
+<p>D代表测试期间的build版本，正式版本是不存在的。</p>
+<p>对Android版本升级的说明</p>
+<p>现在服务器和Android客户端检查更新使用VersionName是不太合适的，Android端版本更新检测应该仅判断VersionCode(现在应用市场版本升级的判断方式)，而不是VersionName。这个是历史遗留问题。</p>
+<p>是否由“项目”开始予以纠正，以VersionCode值作为版本更新判断条件，VersionName作为UI显示。</p>
+<h4 id="iOS端版本号处理规则"><a href="#iOS端版本号处理规则" class="headerlink" title="iOS端版本号处理规则"></a>iOS端版本号处理规则</h4><p>在Info.plist中，添加自定义项：DailyBuildVersion，数据为${CURRENT_PROJECT_VERSION}</p>
+<p>在Build.setting中，设置Versioning System为Apple Generic</p>
+<p>CFBundleShortVersionString:</p>
+<p>默认三位数字：A.B.C</p>
+<p>CFBundleVersion:</p>
+<p>默认为三维数字：A.B.C同CFBundleShortVersionString</p>
+<p>DailyBuildVersion:</p>
+<p>${CURRENT_PROJECT_VERSION}</p>
+<p>对于目前iOS端项目而言，</p>
+<p>A代表最大版本，</p>
+<p>B代表较大需求变动，</p>
+<p>C代表普通需求变动，</p>
+<p>D代表企业版1-2天得build版本。</p>
+<p>我们客户端在上报版本时上报 CFBundleShortVersionString CFBundleVersion，D只是企业版中在“关于”显示的build版本<br>20150211 iOS 设置版本号</p>
+<p>PO和PD如何确定版本号</p>
+<p>默认初始版本为1.0.0</p>
+<p>小的需求变动提升1.0.C中得C</p>
+<p>较大需求变动提升1.B.0中得B</p>
+<p>大版本需求变动提升A.0.0中得A</p>
+<p>对外下载链接<br>为了能统计不同推广来源，所以结合talkingdata 和内部提供的跳转地址来管理 标准发布下载链接流程:<br>…..</p>
 
           
         
@@ -2056,7 +1862,7 @@ Current version of project MyProject is:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/17/GO环境安装/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/01/IOS发布前检查流程/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="songjie">
@@ -2081,8 +1887,8 @@ Current version of project MyProject is:
             
               
                 
-                <a class="post-title-link" href="/2017/01/17/GO环境安装/" itemprop="url">
-                  GO环境安装
+                <a class="post-title-link" href="/2017/02/01/IOS发布前检查流程/" itemprop="url">
+                  IOS发布流程
                 </a>
               
             
@@ -2098,8 +1904,8 @@ Current version of project MyProject is:
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-17T12:12:55+08:00">
-                2017-01-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-01T14:24:11+08:00">
+                2017-02-01
               </time>
             
 
@@ -2121,8 +1927,8 @@ Current version of project MyProject is:
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GO开发/" itemprop="url" rel="index">
-                    <span itemprop="name">GO开发</span>
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
                   </a>
                 </span>
 
@@ -2158,387 +1964,88 @@ Current version of project MyProject is:
       
         
           
-            <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>brew install GO</code> </p>
-<p>安装完成后可以命令 <code>go version</code> 查看版本</p>
-<p><code>go env</code> 查看环境</p>
-<p>需要说明的是：</p>
-<p>GOPATH:日常开发的根目录</p>
-<p>GOBIN:是GOPATH下的bin目录</p>
-<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p><code>vim .bash_profile</code>   </p>
-<p>export GOROOT=/usr/local/Cellar/go<br>export GOPATH=/Users/songjie/Developer/GO<br>export GOBIN=$GOPATH/bin<br>export PATH=$PATH:$GOBIN</p>
-<p>退出vim,使用<code>source ~/.bash_profile</code>即可完成对全局变量的配置了，可以在终端中输入<code>go env</code>查看配置后的效果:</p>
-<pre>
-GOARCH="amd64"
-GOBIN="/Users/songjie/Developer/GO/bin"
-GOEXE=""
-GOHOSTARCH="amd64"
-GOHOSTOS="darwin"
-GOOS="darwin"
-GOPATH="/Users/songjie/Developer/GO"
-GORACE=""
-GOROOT="/usr/local/Cellar/go"
-GOTOOLDIR="/usr/local/Cellar/go/pkg/tool/darwin_amd64"
-CC="clang"
-GOGCCFLAGS="-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/4t/fj38fkl17wg_qg58tvhcqr1w0000gn/T/go-build692382762=/tmp/go-build -gno-record-gcc-switches -fno-common"
-CXX="clang++"
-CGO_ENABLED="1"
-</pre>
-
-<h3 id="下载IED"><a href="#下载IED" class="headerlink" title="下载IED"></a>下载IED</h3><p><a href="http://www.golangtc.com/download/liteide" target="_blank" rel="external">LiteIED 下载地址</a></p>
-<p>需要注意的是安装之后运行会告诉你找不到env中找不到PATH</p>
-<p>解决办法：preferences -&gt; LiteEnv -&gt; system.env</p>
-<pre>
-# native compiler drawin amd64
-
-#GOROOT=/usr/local/Cellar/go
-#GOBIN=/Users/songjie/Developer/GO/bin
-#GOARCH=amd64
-#GOOS=darwin
-#CGO_ENABLED=1
-
-/*PATH=$PATH 还是会提示找不到PATH*/
-PATH=$PATH
-
-LITEIDE_GDB=/usr/local/bin/gdb
-LITEIDE_MAKE=make
-LITEIDE_TERM=/usr/bin/open
-LITEIDE_TERMARGS=-a Terminal
-LITEIDE_EXEC=/usr/X11R6/bin/xterm
-LITEIDE_EXECOPT=-e
-</pre>
-
-<p>有个奇怪的问题 默认 PATH=$PATH echo 之后发现也没啥区别，但是就是不行，没办法直接</p>
-<pre>
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bin:/usr/local/Cellar/go/bin/bin:/Users/songjie/Developer/GO/bin  （需要更具自己的实际路径）
-</pre>
-
-<h3 id="subline-插件配置"><a href="#subline-插件配置" class="headerlink" title="subline 插件配置"></a>subline 插件配置</h3><p>这里笔者选用的是sublime text安装gosublime插件进行开发（golang语法高亮提示），安装方式这里就不多提了。</p>
-<p>安装 <code>gosubline</code> 插件</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到目前为止，我们已经安装好了开发golang程序的基本环境</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/小乐课堂/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/小乐课堂/" itemprop="url">
-                  小乐课堂
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T22:45:55+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/me/" itemprop="url" rel="index">
-                    <span itemprop="name">me</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="DrawingBoard-oc"><a href="#DrawingBoard-oc" class="headerlink" title="DrawingBoard - oc"></a>DrawingBoard - oc</h3><blockquote>
-<p>13年作过的东西，一直没有总结，这次单独抽出来和大家分享。</p>
+            <h3 id="IOS客户端发布流程"><a href="#IOS客户端发布流程" class="headerlink" title="IOS客户端发布流程"></a>IOS客户端发布流程</h3><blockquote>
+<p>在app发布前需要对各个环境进行检查，这样出现问题就可以快速定位，避免不必要的锅<em>*</em></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/jw007800/photo/master/jt.png" alt=""></p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>这个画板本来分为老师端盒学生端，其实就是作了下适配，教师端多了一些其它功能，包括，录屏，airPlay投影、 远程协助、推送资料等。这里将和画板没有关系的内容去掉了，如果有朋友需要 airPlay投影appleTV、Scoket、远程协助的了解可以联系我。<br><a href="https://github.com/jw007800/DrawingBoard" target="_blank" rel="external">code</a></p>
-<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>1 可以用手指画你想画的任何东西</p>
-<p>2 用户可以改变线条的颜色粗细。颜色、透明度</p>
-<p>3 保留每一种工具（笔、矩形、荧光笔…）的状态</p>
-<p>4 可以分页</p>
-<p>5 前进、后退、清空</p>
-<p>6 添加备注、涂鸦。涂鸦可旋转缩放改变大小</p>
-<h3 id="框架设计"><a href="#框架设计" class="headerlink" title="框架设计"></a>框架设计</h3><p>LZXDoodleViewController rootVC<br><br>browserTableView 分页控件<br><br>canvasBar 工具栏<br><br>ACEDrawingView 画布<br></p>
-<p>一些设计模式参考了<code>设计模式编程之道</code><br><br>例如: 中介者模式、</p>
-<p>使用组合结构表示痕迹（mark）</p>
-<h5 id="试图管理"><a href="#试图管理" class="headerlink" title="试图管理"></a>试图管理</h5><p>使用中介者模式切换试图</p>
-<h5 id="如何表现涂鸦"><a href="#如何表现涂鸦" class="headerlink" title="如何表现涂鸦"></a>如何表现涂鸦</h5><p>1 屏幕上画什么？点、矩形、圆、直线、文字、图片<br><br>2 用组合结构来表示痕迹，通过组合模式可以把线条与点组合到树状结构，无论线条还是点，其实都是本质上的某种“痕迹”mark<br><img src="/2016/12/31/小乐课堂/yyyyy.png" alt="yyyyy.png" title=""><br>组合结构的Mark模型的类图<br><br>父类型是一个协议，mark为所有具体类定义了熟悉和方法<br><br>3 绘制涂鸦<br><br>重载drawRect方法，touchesMoved 可以向UIView 发送 setNeedDisPlay消息，currentTool 子类（继承了mark协议的 矩形、线、圆）进行绘制<br><br>4 命令模式，在工具栏上的按钮（删除、撤销）都包含一个<code>LZXBarCommand</code>对象，每个对象都有一个execute() 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">func loadCanvasBarWithGenerator(generator: LZXCanvasViewGenerator) &#123;</div><div class="line">    let canvasBarRect = CGRect(x: 0, y: 0, width: kMainScreenWidth, height: 50)</div><div class="line">    canvasBar = generator .canvasBarWithFrame(frame: canvasBarRect)</div><div class="line">    canvasBar?.receiveObject(sendObject: &#123; (object) in</div><div class="line">        if object is LZXToolButton &#123;</div><div class="line">            self.toolBtn = object as! LZXToolButton?</div><div class="line">            LZXCoordinatingManager.sharedInstance.canvasViewController = self</div><div class="line">            self.doodleview?.lineWidth = (self.toolBtn?.fontSize)!</div><div class="line">            self.doodleview?.lineAlpha = (self.toolBtn?.spacingSize)!</div><div class="line">            self.doodleview?.lineColor = (self.toolBtn?.savedColor)!</div><div class="line">            ((self.toolBtn?.toolType)! == .LZXEraser) ? (self.doodleview?.isclear = true) : (self.doodleview?.isclear = false)</div><div class="line"></div><div class="line">            self.doodleview?.drawTool = self.currentDrawTool((self.toolBtn?.toolType)!)</div><div class="line">        &#125;</div><div class="line">        if object is LZXCommandBtn &#123;</div><div class="line">            self.customBtn = object as! LZXCommandBtn?</div><div class="line">            self.customBtn?.command?.execute()</div><div class="line">            LZXCoordinatingManager.sharedInstance.canvasViewController = self</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    self.view.addSubview(canvasBar!)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h5 id="如何表现保存的涂鸦"><a href="#如何表现保存的涂鸦" class="headerlink" title="如何表现保存的涂鸦"></a>如何表现保存的涂鸦</h5>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/个人简历/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="songjie">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/6276527?v=3&s=400">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="IT_金乌's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="IT_金乌's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/个人简历/" itemprop="url">
-                  个人简历
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T22:02:42+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/me/" itemprop="url" rel="index">
-                    <span itemprop="name">me</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="简-历"><a href="#简-历" class="headerlink" title="简  历"></a>简  历</h3><h4 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h4><blockquote>
-<p>姓名:宋杰  性别:男    出生年月:1989／07／08    籍 贯:山西  学 历    :专科</p>
-<p>移动电话:15010655973        邮箱: jw007800@yeah.net</p>
-<p>博客：<a href="http://jw007800.github.io" target="_blank" rel="external">http://jw007800.github.io</a></p>
-</blockquote>
-<h4 id="求职目标"><a href="#求职目标" class="headerlink" title="求职目标"></a>求职目标</h4><blockquote>
-<p>研发经理 / ios软件开发工程师</p>
-</blockquote>
-<h4 id="期望薪资-22k-25k"><a href="#期望薪资-22k-25k" class="headerlink" title="期望薪资 22k-25k"></a>期望薪资 22k-25k</h4><h4 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h4><p>熟练掌握Objective-C、swift语言，熟悉面向对象编程设计。熟悉iphone sdk，cocoa相关技术开发及应用，熟练掌握runtime、runloop机制，熟悉多线程处理机制使用GCD多线程编程，熟悉使用Sqlite、coreData数据存储。精通ios开发工具和相关开发测试工具的使用，熟悉各个不同版本ios的特性。熟练使用自动化打包，掌握SDK的开发流程，熟练使用常见ios第三方开源库，熟悉ios平台下GUI的设计和实现。熟悉基本网络通信协议，网络解析、请求等，能独立完成xml/json解析并模拟服务器。自学能力较强、思路清晰、思维敏捷、沟通能力强，本人对手机软件开发具有浓厚兴趣,具备扎实的编程基本功和良好的编程习惯。<br>熟练使用Axure 、mockups、OmniGraffle Professional 设计原型交互。<br>熟练掌握项目开发流程、编写项目文档说明书和编码规范。<br>熟悉敏捷开发思想、并在团队中实施应用。<br>熟悉使用remine对项目进行管理。<br>正在学习PMI-ACP 敏捷项目管理认证。</p>
-<h4 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h4><p>➢    2014/08 — 今     公司  着迷网<br><br>TD部 | ios软件工程师<br><br>工作描述：<br><br>14/08 至15/03: 负责着迷攻略小端，着迷玩霸、公共库开发、开玩游戏录屏SDK的研发维护<br><br>15/03 至15/11: 外派到芜湖分公司，组建芜湖着迷TD团队 php、ios，开启芜湖IOS培优计划，独自培养实习生10人， 支持着迷 迷系列 视频客户端的研发及对外SDK的封装。</p>
-<p>➢    2014/01 — 2014/06     公司  北京东方华尔金融咨询有限责任公司（半年）<br><br>IT部 | 移动项目经理兼ios软件工程师<br><br>工作描述：主要从事需求的整理和需求调研、编写需求文档、设计交互原型，保证和领导的理解一致，定义绩效考核办法、协调后台接口、协调UI资源，制定ios、安卓开发计划周期，根据项目进度，在项目过程/活动 标准化、规范化。遇到问题及时沟通解决。<br>负责项目框架搭建以及部分模块编码、测试、上线。</p>
-<p>➢    2013/03 — 2014/01     公司  乐知行软件有限公司<br><br>IT部 | ios软件工程师<br><br>工作描述：负责小乐课堂 ipad 的开发，服务端接口对接，校园部署测试。</p>
-<p>➢    2011/08 — 2013/12     公司  北京格致璞科技有限公司（两年半）<br><br>技术部 | ios软件工程师<br><br>工作描述：主要负责ios 抽屉客户端、哗啦啦点餐的开发，配合完成项目的编码、测试、上线和更新，精通Object-C能熟练应用X-code开发工具。</p>
-<h4 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h4><h5 id="玩霸"><a href="#玩霸" class="headerlink" title="玩霸"></a>玩霸</h5><p>时间：2014/8-今 <br><br>开发人员：3人（ios）<br><br>项目描述：本客户端为手游资讯类app，提供手游资讯攻略等服务。<br><br>责任描述 ：coding</p>
-<h5 id="动画迷-（迷系列视频项目）"><a href="#动画迷-（迷系列视频项目）" class="headerlink" title="动画迷 （迷系列视频项目）"></a>动画迷 （迷系列视频项目）</h5><p>时间：2015/3-2015/11<br><br>开发人员：我+5个实习生 （ios）<br><br>项目描述：视频聚合客户端，提供无广告、无限制的视频。包括（美剧、动画、综艺）<br>视频源来至各大视频网站。客户端实现视频源破解。<br><br>责任描述 ：coding 及 项目管理</p>
-<h5 id="农商行知识管理"><a href="#农商行知识管理" class="headerlink" title="农商行知识管理"></a>农商行知识管理</h5><p>时间： 2014.6/15-2014/8 <br><br>开发人员：2人（ios）<br><br>项目描述：本客户端为农商行在职员工提供行业最新资讯、为员工提供在线学习平台，利用碎片时间去学习自己需要的知识；并对学习做情况做测试（习题）。<br><br>责任描述：需求整理、交互设计、资源协调</p>
-<h5 id="金融e学"><a href="#金融e学" class="headerlink" title="金融e学"></a>金融e学</h5><p>时间：2014/4/9-2014/6/10<br>开发人员：2人（ios）<br><br>项目描述：本客户端为学员提供华尔最新资讯、关注华尔产品，为学员提供在线学习平台，利用碎片时间去学习自己需要的知识；金融e学1.5提供 咨询、在线学习、公开课、用户中心、设置等功能。评论、分享、购买课件、习题系统、视频播放下载</p>
-<h5 id="哗啦啦点餐"><a href="#哗啦啦点餐" class="headerlink" title="哗啦啦点餐"></a>哗啦啦点餐</h5><p>时间：2012/3-2012/10<br><br>开发人员：3人<br><br><a href="http://itunes.apple.com/app/id549458737?mt=8" target="_blank" rel="external">项目地址</a><br><br>商户版：嘉和一品、香草香草、黑松白鹿、望湘园、嘉禾一品等<br>项目描述：哗啦啦是一个在线点餐平台，用户只需要动动手指就可以随意选就餐环境、就餐时间、菜品样式和数量、预定座位、在线点餐支付功能。用户可以根据餐馆类型、最佳推荐、定位搜索查看合适餐馆的地址，电话和菜品，餐馆信息支持分享和收藏，可以在线点菜选择菜品样式和数量，就餐人数，填写联系方式、就餐时间、备注完成订餐。用户可以查看未提交订单、已提交订单和收藏餐馆相关信息。积分消费，关于我们，意见反馈，版本检测。<br>责任描述：除用户中心 80％ 的UI编码、数据收发。和相关后台人员调试服务实现相对应的功能。还负责代码的优化、流程优化以及界面的调整、BUG的修改、target的新建实现一套代码不同的app， 分享到微博、微信SDK的整合，推送等技术。</p>
-<h5 id="抽屉新热榜"><a href="#抽屉新热榜" class="headerlink" title="抽屉新热榜"></a>抽屉新热榜</h5><p>时间:2011/9-2011/12 <br><br>开发人员：3人<br><br><a href="http://itunes.apple.com/us/app/chou-ti-xin-re-bang-zui-hao/id513228984?mt=8" target="_blank" rel="external">项目地址</a> <br><br>项目描述：该项目是一个新闻类的客户端，汇聚每日的搞笑段子、最新资讯、图片、社交互动等。功能有看新闻、评论新闻、推荐新闻、分享到微博等。<br><br>本人负责：登陆、注册、设置、意见反馈的 UI编码、微博分享sdk整合。</p>
-<h4 id="小乐课堂（ipad）"><a href="#小乐课堂（ipad）" class="headerlink" title="小乐课堂（ipad）"></a>小乐课堂（ipad）</h4><p>时间: 2013/3-2013/5<br><br>开发人员：2人<br><br>项目描述：该项目是一个实现数字化教育的一个产品，改变了以往的上课模式增强了老师和学生之间的互动性。项目中包含老师端和学生端。老师端可以把教案中的多媒体资料通过socket 和学生进行收发，还增加了airplay投影到appleTv的支持，老师和学生之间可以实现答题、推送，查看学生动态、提醒、点名、奖励等互动，还包括学生资料在线的下载以及pdf。Word 等资料的阅读。<br><br>本人负责：小乐课堂的研发，包括项目框架的搭建，socket 数据的收发、接口的适配、<br>UI界面的编写、模块功能的研发、调试、bug的修改等。</p>
-<h4 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h4><p>2008/09 — 2011/06    西安数字技术学院<br>专业：数码嵌入      </p>
-<h4 id="培训经历"><a href="#培训经历" class="headerlink" title="培训经历"></a>培训经历</h4><p>2010/11 — 2011/04    西安五洲科技            专业    iphone程序开发<br>2106/9 光环国际  PMI-ACP 敏捷项目管理  </p>
-<h4 id="自我评价"><a href="#自我评价" class="headerlink" title="自我评价"></a>自我评价</h4><ol>
-<li>善于与同事沟通、交流，具有良好的沟通能力和团队协作能力；</li>
-<li>工作认真负责，踏实肯干，善于创新，勇于迎接挑战，敢于承担责任；</li>
-<li>具有较强的精力投入工作，富有工作激情，乐业敬业；</li>
-<li>具有较强的适应性、分析思考能力及快速学习能力。</li>
-</ol>
+<p><strong>IOS端发版流程</strong></p>
+<h4 id="流程定义"><a href="#流程定义" class="headerlink" title="流程定义"></a>流程定义</h4><p>该流程遵循前提为：App已经通过QA测试并满足相关需求</p>
+<p>定义iOS客户端发布时所遵循的流程</p>
+<p>iOS开发工程师需要遵循该流程完成发布</p>
+<p>其他角色了解该流程</p>
+<h4 id="角色及职责"><a href="#角色及职责" class="headerlink" title="角色及职责"></a>角色及职责</h4><p>描述该流程中所依赖的角色及其职责描述，同时明确责任</p>
+<p>角色  职责</p>
+<p>PO/PD   提供需求、上架信息、应用信息等</p>
+<p>Wiki    记录上架信息及更新上架记录</p>
+<p>iOS iOS开发工程师</p>
+<p>iTunes  苹果提交应用信息及二进制地址</p>
+<p>QA  质量保证，负责测试</p>
+<p>All 相关干系人及部门，接收邮件通知</p>
+<p>Server  服务器端，调整审核开关</p>
+<p>Qiniu   保存上传二进制文件</p>
+<h4 id="输入项"><a href="#输入项" class="headerlink" title="输入项"></a>输入项</h4><p>该输入项默认为该版本的app所依赖的内容</p>
+<p>名称  描述</p>
+<p>上架信息    包含了app名称、上架图、关键词、描述信息、版本号等内容</p>
+<p>CheckList   包含了app在提交时的检查清单列表</p>
+<p>app相关代码 包含了需要提交的app的源代码</p>
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><p>描述了完成该流程所需要的工具</p>
+<p>名称  描述</p>
+<p>邮件  通过邮件来确认并核实相关信息</p>
+<h4 id="输出项"><a href="#输出项" class="headerlink" title="输出项"></a>输出项</h4><p>描述了经过该过程产出的内容列表</p>
+<p>名称  描述</p>
+<p>Wiki更新  记录app的相关上架信息、上架记录及上架过程中出现的问题及解决方案</p>
+<p>CheckList列表 记录app上架前的最后检测清单列表</p>
+<h4 id="流程概述图"><a href="#流程概述图" class="headerlink" title="流程概述图"></a>流程概述图</h4><p>描述发版流程走向</p>
+<p>流程描述</p>
+<p><strong>正式版</strong></p>
+<p>发版详细描述该流程</p>
+<p>PO/PD在Wiki iOS App上架记录 中更新上架应用相关信息</p>
+<p>PO/PD发送邮件为iOS提供app上架相关信息内容</p>
+<p>iOS根据邮件内容从Wiki中获取应用上架信息</p>
+<p>iOS将应用上架信息上传iTunes，完成内容更新</p>
+<p>iOS发送邮件将CheckList给QA，完成检测</p>
+<p>iOS整理代码，执行clean -&gt; compile -&gt; archive，执行archive之后的二进制文件验证</p>
+<p>iOS将archive文件上传iTunes，完成二进制文件上传</p>
+<p>iOS在iTunes中选择该次编译版本，完成该版本的提交</p>
+<p>iOS将上架记录及上架过程中出现的问题和解决方案更新到Wiki</p>
+<p>iOS发送邮件通知PO/PD和All，完成该版本的发布</p>
+<p>发版后审核通过描述流程</p>
+<p>iOS或PO/PD收到iTunes中得反馈邮件</p>
+<p>iOS更新Wiki文档，记录审核通过日期</p>
+<p>iOS发送邮件通知PO/PD和All，告知该版本审核通过</p>
+<p>PO/PD给iOS发送邮件为Release该版本</p>
+<p>iOS通知Server调整审核开关，完成开关调整</p>
+<p>iOS在iTunes中发布该版本</p>
+<p>iOS发送邮件通知PO/PD和All，告知该版本已上线</p>
+<p>发版后审核未通过描述流程</p>
+<p>iOS或PO/PD收到iTunes中得被拒邮件</p>
+<p>iOS将被拒原因更新到WIki文档</p>
+<p>iOS发送邮件通知PO/PD和All，告知该版本被拒</p>
+<p>需要申诉</p>
+<p>PO/PD想iTunes提交申诉内容</p>
+<p>功能调整</p>
+<p>PO/PD给IOS发送需要调整的内容</p>
+<p>iOS执行相应功能调整</p>
+<p><strong>企业版</strong></p>
+<p>发版详细描述该流程</p>
+<p>PO/PD在Wiki iOS App上架记录 中更新渠道相关信息</p>
+<p>PO/PD发送邮件为iOS提供app渠道信息内容</p>
+<p>iOS根据邮件内容从Wiki中获取渠道信息</p>
+<p>iOS发送邮件将CheckList给QA，完成检测</p>
+<p>iOS整理代码，执行clean -&gt; compile -&gt; archive -&gt; 导出spa</p>
+<p>iOS将ipa文件上传iQiniu，完成二进制文件上传</p>
+<p>iOS将上架记录及上架过程中出现的问题和解决方案更新到Wiki</p>
+<p>iOS发送邮件通知PO/PD，完成该版本的发布</p>
+<p><strong>iOS App上架记录  模板</strong></p>
+<p>小游戏项目</p>
+<p>名称  版本  测试账号    沙盒版 推送渠道</p>
+<p>pushchannel 网络环境</p>
+<p>com/dev/beta    渠道  上架信息    上架日期    审核结果</p>
+<p>糖果连萌    1.0.1   无   无   无   com appstore    糖果连萌上架资料信息  20150323    20150403已上架</p>
+<img src="/2017/02/01/IOS发布前检查流程/IOS端发版流程.png" alt="IOS端发版流程.png" title="">
+<p><br><br><strong>IOS端企业版发版流程</strong></p>
+<img src="/2017/02/01/IOS发布前检查流程/IOS端企业版发版流程.png" alt="IOS端企业版发版流程.png" title="">
+<p><br><br><strong>检查项</strong></p>
+<img src="/2017/02/01/IOS发布前检查流程/检查项.png" alt="检查项.png" title="">
 
           
         
@@ -2571,6 +2078,10 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2611,7 +2122,7 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2620,7 +2131,7 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2629,7 +2140,7 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2673,6 +2184,24 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/songjie/Developer/GO/bi
                     <i class="fa fa-fw fa-globe"></i>
                   
                   知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cocoacontrols.com" target="_blank" title="CocoaControls">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CocoaControls
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://codepen.io" target="_blank" title="在线练习html、css及js">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  在线练习html、css及js
                 </a>
               </span>
             
